@@ -1,0 +1,60 @@
+# Full stack for Dokploy / production-like local runs.
+# The frontend nginx proxies /api to the Go service (same origin).
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-khhub}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-khhub}
+    volumes:
+      - khhub_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-khhub} -d ${POSTGRES_DB:-khhub}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - khhub
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      HTTP_ADDR: :8080
+      DATABASE_URL: postgres://${POSTGRES_USER:-khhub}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-khhub}?sslmode=disable
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      SESSION_SECRET: ${SESSION_SECRET}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "8080"
+    networks:
+      - khhub
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - api
+    expose:
+      - "80"
+    networks:
+      - khhub
+
+volumes:
+  khhub_pg:
+
+networks:
+  khhub:
+    driver: bridge

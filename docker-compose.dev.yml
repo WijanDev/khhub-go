@@ -1,0 +1,21 @@
+# Local development: Postgres only. Run the API and Vite app on the host.
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-khhub}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-khhub_dev_only}
+      POSTGRES_DB: ${POSTGRES_DB:-khhub}
+    ports:
+      - "5432:5432"
+    volumes:
+      - khhub_pg_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-khhub} -d ${POSTGRES_DB:-khhub}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  khhub_pg_dev:

@@ -1,0 +1,69 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-ring: var(--ring);
+  --font-sans: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-ui: "Segoe UI", system-ui, sans-serif;
+  --radius-md: 0.55rem;
+  --radius-lg: 0.85rem;
+}
+
+:root {
+  --background: #f6f1e7;
+  --foreground: #1f2a22;
+  --card: #fffdf8;
+  --card-foreground: #1f2a22;
+  --muted: #ebe3d4;
+  --muted-foreground: #5c675e;
+  --border: #d7cdb8;
+  --input: #d7cdb8;
+  --primary: #2f5d3a;
+  --primary-foreground: #f8f4ea;
+  --secondary: #ebe3d4;
+  --secondary-foreground: #1f2a22;
+  --accent: #c46a2d;
+  --accent-foreground: #fffdf8;
+  --destructive: #9b2c2c;
+  --popover: #fffdf8;
+  --popover-foreground: #1f2a22;
+  --ring: #2f5d3a;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ui);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
+}

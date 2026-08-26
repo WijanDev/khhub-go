@@ -1,0 +1,27 @@
+# Env and secrets
+.env
+.env.local
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Go
+backend/tmp/
+backend/bin/
+*.exe
+*.test
+coverage.out
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Docker
+postgres-data/
