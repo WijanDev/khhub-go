@@ -1,6 +1,7 @@
 package http
 
 import (
+	"context"
 	"net/http"
 	"sync"
 	"time"
@@ -12,6 +13,16 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
+
+// sessionQuerier is the store surface used by login, logout, and the session cookie.
+// *store.Queries implements it.
+type sessionQuerier interface {
+	GetUserByEmail(ctx context.Context, email string) (store.User, error)
+	CreateSession(ctx context.Context, arg store.CreateSessionParams) (store.Session, error)
+	DeleteExpiredSessions(ctx context.Context) error
+	DeleteSessionByTokenHash(ctx context.Context, tokenHash string) error
+	GetSessionByTokenHash(ctx context.Context, tokenHash string) (store.GetSessionByTokenHashRow, error)
+}
 
 type ctxKey string
 
@@ -31,7 +42,7 @@ func currentUser(c *gin.Context) (AuthUser, bool) {
 	return u, ok
 }
 
-func sessionMiddleware(cfg config.Config, q *store.Queries) gin.HandlerFunc {
+func sessionMiddleware(cfg config.Config, q sessionQuerier) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token, err := c.Cookie(auth.CookieName)
 		if err != nil || token == "" {

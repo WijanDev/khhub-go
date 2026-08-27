@@ -31,7 +31,7 @@ func clearSessionCookie(c *gin.Context, cfg config.Config) {
 	c.SetCookie(auth.CookieName, "", -1, "/", "", cfg.CookieSecure, true)
 }
 
-func postLogin(cfg config.Config, q *store.Queries, limiter *loginLimiter) gin.HandlerFunc {
+func postLogin(cfg config.Config, q sessionQuerier, limiter *loginLimiter) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if !limiter.allow(c.ClientIP()) {
 			jsonError(c, http.StatusTooManyRequests, "demasiados intentos; espera unos minutos")
@@ -67,7 +67,7 @@ func postLogin(cfg config.Config, q *store.Queries, limiter *loginLimiter) gin.H
 	}
 }
 
-func postLogout(cfg config.Config, q *store.Queries) gin.HandlerFunc {
+func postLogout(cfg config.Config, q sessionQuerier) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if token, err := c.Cookie(auth.CookieName); err == nil && token != "" {
 			_ = q.DeleteSessionByTokenHash(c.Request.Context(), auth.HashToken(token))
