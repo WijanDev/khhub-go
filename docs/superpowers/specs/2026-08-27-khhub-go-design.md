@@ -1,7 +1,7 @@
 # Design: khhub-go skill and a small backend alignment pass
 
 **Date:** 2026-08-27  
-**Status:** draft — awaiting review  
+**Status:** approved — 2026-08-27  
 **Product:** khhub (not official JW software; no jw.org; UI in Spanish, docs in English)
 
 ## Problem
