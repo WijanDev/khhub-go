@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Operating contract for coding agents in this repository. Humans start at [README.md](README.md). Living work lives in [ROADMAP.md](ROADMAP.md). Skills live in [`.agents/skills/`](.agents/skills/) (vendor-neutral Agent Skills path).
+Operating contract for coding agents in this repository. Humans start at [README.md](README.md). Living work lives in [docs/roadmap/](docs/roadmap/summary.md). Skills live in [`.agents/skills/`](.agents/skills/) (vendor-neutral Agent Skills path).
 
 ## Product
 
@@ -85,9 +85,9 @@ Load a skill when the task matches. Do not load all of them.
 
 | Task | Skill |
 | --- | --- |
-| New feature / unclear design | `brainstorming` then `docs-ai-prd` |
+| New feature / unclear design | `brainstorming` (then `roadmap-plan` after the design is approved; `docs-ai-prd` if a spec is still needed) |
 | Multi-step implementation | `writing-plans` → `executing-plans` |
-| Update the living checklist | `maintain-roadmap` |
+| Capture or rank a roadmap idea | `roadmap-plan` |
 | Write or refresh English docs | `khhub-docs`, `developer-docs-planning`, `developer-docs-drafting` |
 | Go/Gin handlers or tests | `khhub-stack`, `golang-gin-api`, `golang-gin-testing` |
 | Schema / indexes / migrations | `khhub-stack`, `golang-gin-psql-dba` |

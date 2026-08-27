@@ -19,7 +19,7 @@ Install or refresh third-party skills with the [skills CLI](https://skills.sh) i
 npx skills add <owner/repo> -a universal --copy -y -s <skill-name>
 ```
 
-`../skills-lock.json` pins source + hash. Project-owned skills (`khhub-stack`, `khhub-docs`, `maintain-roadmap`) are not in that lockfile.
+`../skills-lock.json` pins source + hash. Project-owned skills (`khhub-stack`, `khhub-docs`, `roadmap-plan`) are not in that lockfile.
 
 ## Installed skills
 
@@ -33,7 +33,7 @@ npx skills add <owner/repo> -a universal --copy -y -s <skill-name>
 | `docs-ai-prd` | [vasilyu1983/ai-agents-public](https://github.com/vasilyu1983/ai-agents-public) | PRDs, specs, acceptance criteria |
 | `developer-docs-planning` | [lvtd-llc/skills](https://github.com/lvtd-llc/skills) | What docs to write before drafting |
 | `developer-docs-drafting` | lvtd-llc/skills | Draft developer-facing docs |
-| `maintain-roadmap` | this repo | Keep `ROADMAP.md` honest |
+| `roadmap-plan` | this repo | `docs/roadmap/` ideas, scores, and `summary.md` |
 | `khhub-docs` | this repo | English docs + Spanish UI |
 
 ### Stack

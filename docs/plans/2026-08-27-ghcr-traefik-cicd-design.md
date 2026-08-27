@@ -30,7 +30,7 @@ Production Compose currently `build:`s the API and SPA on the Hetzner `cx23`. Th
 Browser
   ├─ https://khhub.app          → Traefik → web (static)
   └─ https://api.khhub.app      → Traefik → api :8080
-https://admin.khhub.app         → Dokploy panel (unchanged)
+https://admin.wijan.dev         → Dokploy panel (personal host)
 
 GitHub main
   → Actions build/push
@@ -118,7 +118,7 @@ Firewall stays 22/80/443.
 - `docs/deploy-dokploy.md` (GHCR, domains, env).
 - `README.md` (local API origin, no Vite proxy).
 - `.env.example` (document `VITE_API_URL` for Vite).
-- `ROADMAP.md` (tick CI / cookie-CORS items that this change actually ships).
+- `docs/roadmap/` (mark shipped CI / cookie-CORS ideas implemented if this change actually ships them).
 
 ## Success
 

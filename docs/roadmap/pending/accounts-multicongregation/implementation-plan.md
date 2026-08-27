@@ -1,0 +1,12 @@
+# Implementation plan
+
+Source: `docs/superpowers/specs/2026-08-27-accounts-multicongregation-design.md`. Do the slices in order. Cookie stays `khhub_session`. No JWT. No public signup.
+
+1. **Tenancy.** New `congregations` table (UUID). Migration: move the singleton row; add `congregation_id` to households, publishers, field_service_reports, meeting_attendance. Update sqlc queries to filter by congregation. Seed attaches existing rows to one congregation. Verify: httptest with two fixture congregations; user A never reads B’s rows (404).
+2. **Users.** Columns: `congregation_id`, `publisher_id` (unique, nullable), `username`, nullable `email` and `password_hash`, `is_secretary`, `is_superadmin`, `login_enabled`. Session stores `active_congregation_id` (superadmin only may change it). `GET /auth/me` returns flags, stacked privileges, nav keys, home/active congregation. Today’s `ADMIN_EMAIL` user is secretary + superadmin of the migrated congregation.
+3. **Gate existing routes.** Secretary (or superadmin in the active congregation) keeps dashboard, publishers, reports, attendance, congregation settings. Others get 403. Publisher may `PUT` own first/last name only.
+4. **SPA 401/403.** In `frontend/src/lib/api.ts`, on 401 or 403 navigate to `/login` (public landing) and show a Spanish toast with `error`. Do not clear the cookie on 403. After 403, do not auto-send the user back to the forbidden route; offer their first allowed app route. Verify: publisher opening `/reports` lands on `/login` with a toast and no loop.
+5. **Access.** Secretary (or superadmin) enables login: set password, mint passkey QR/enrollment token (`enrollment_tokens`, single use, short TTL, 410 when stale), WebAuthn credentials table. Login: discoverable passkey and email/username + password or passkey. Hide invite-email if SMTP is unset. Cannot remove the last secretary (409).
+6. **Publisher portal (thin).** Narrow directory DTO (name, family name, household name, group, privileges — group may be empty until that idea). Own monthly report upsert for the linked publisher. Empty Program / Assignments / Attention / Goals routes that 403 when the role must not see them. Student: program only.
+7. **Superadmin.** Create/edit/archive congregations. Header switcher. No second superadmin from the UI.
+8. **Verify:** `cd backend && go test ./...`. `cd frontend && npm run lint && npm run build`. Table-driven cases from the spec (student 403 on directory; elder attention 200 and others’ reports 403; last secretary 409; token 410; no shepherding-notes migration or route).

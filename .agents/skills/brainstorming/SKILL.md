@@ -19,6 +19,11 @@ to EVERY task on EVERY path below — the ceremony scales with the task;
 the approval gate never does.
 </HARD-GATE>
 
+After the human approves a **bounded** or **architectural** design,
+load `.agents/skills/roadmap-plan` and create the idea under
+`docs/roadmap/pending/<slug>/` before writing product code. A spike does not
+create an idea.
+
 ## Three Paths
 
 Before your first question, classify the request and say the
@@ -89,7 +94,8 @@ your path and complete them in order.
 2. **Ask clarifying questions** — one at a time, the ones that matter
 3. **Present short design in chat** — approach, files touched, testing
 4. **Get approval** — STOP and wait for an explicit yes; presenting the design and starting in the same breath is skipping the gate
-5. **Implement** — proceed with the normal development workflow (TDD applies); no plan document
+5. **Capture the idea** — load `.agents/skills/roadmap-plan` and create `docs/roadmap/pending/<slug>/` from the approved design (see that skill). Do not skip this step.
+6. **Implement** — only after the human asks to build it. Then use the normal development workflow (TDD applies); no separate plan document beyond the idea’s `implementation-plan.md`
 
 **Architectural:**
 1. **Explore project context** — check files, docs, recent commits
@@ -100,7 +106,8 @@ your path and complete them in order.
 6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
 7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 8. **User reviews written spec** — ask user to review the spec file before proceeding
-9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+9. **Capture the idea** — load `.agents/skills/roadmap-plan` and create `docs/roadmap/pending/<slug>/` from the approved design. The idea’s `implementation-plan.md` is the source for cost scoring.
+10. **Transition to implementation** — only after the human asks to build it. Then invoke `writing-plans` if the idea still needs a bite-sized plan beyond that folder.
 
 ## Process Flow
 
@@ -131,7 +138,9 @@ digraph brainstorming {
     "Ask clarifying questions (bounded)" -> "Present short design in chat";
     "Present short design in chat" -> "Human approves?";
     "Human approves?" -> "Investigate; report recommendation" [label="spike: yes"];
-    "Human approves?" -> "Implement via normal workflow (no plan doc)" [label="bounded: yes"];
+    "Human approves?" -> "Capture idea via roadmap-plan" [label="bounded: yes"];
+    "Capture idea via roadmap-plan" [shape=box];
+    "Capture idea via roadmap-plan" -> "Implement via normal workflow (no plan doc)";
     "Hidden complexity? Upgrade path" -> "Classify: spike / bounded / architectural";
     "Explore project context" -> "Ask clarifying questions";
     "Ask clarifying questions" -> "Propose 2-3 approaches";
@@ -142,16 +151,18 @@ digraph brainstorming {
     "Write design doc" -> "Spec self-review\n(fix inline)";
     "Spec self-review\n(fix inline)" -> "User reviews spec?";
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Invoke writing-plans skill" [label="approved"];
+    "User reviews spec?" -> "Capture idea via roadmap-plan" [label="approved"];
+    "Capture idea via roadmap-plan" -> "Invoke writing-plans skill";
 }
 ```
 
-**Terminal states are path-bound.** Architectural: the ONLY skill you
-invoke after brainstorming is writing-plans — never frontend-design,
-mcp-builder, or any other implementation skill. Bounded: after
-approval, implementation proceeds directly through the normal
-development workflow; no plan document. Spike: the terminal state is a
-reported recommendation.
+**Terminal states are path-bound.** After a bounded or architectural
+design is approved, the next skill is always `roadmap-plan` (create or
+update the idea folder). Architectural work may then use `writing-plans`.
+Never jump to frontend-design, mcp-builder, or other implementation
+skills from brainstorming. Bounded: implement only after the human asks
+and the idea exists under `docs/roadmap/`. Spike: the terminal state is a
+reported recommendation — no idea folder.
 
 ## The Process
 

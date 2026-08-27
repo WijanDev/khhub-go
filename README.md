@@ -43,4 +43,4 @@ See [docs/deploy-dokploy.md](docs/deploy-dokploy.md).
 
 ## Agents
 
-Project rules: [AGENTS.md](AGENTS.md). Living checklist: [ROADMAP.md](ROADMAP.md). Skills (Cursor-agnostic): [.agents/README.md](.agents/README.md).
+Project rules: [AGENTS.md](AGENTS.md). Living roadmap: [docs/roadmap/summary.md](docs/roadmap/summary.md). Skills (Cursor-agnostic): [.agents/README.md](.agents/README.md).
