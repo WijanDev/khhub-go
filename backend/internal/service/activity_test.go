@@ -7,23 +7,6 @@ import (
 	"khhub/internal/domain"
 )
 
-func TestServiceYear(t *testing.T) {
-	cases := []struct {
-		date time.Time
-		want int
-	}{
-		{time.Date(2024, time.September, 1, 0, 0, 0, 0, time.UTC), 2025},
-		{time.Date(2025, time.August, 31, 0, 0, 0, 0, time.UTC), 2025},
-		{time.Date(2025, time.September, 1, 0, 0, 0, 0, time.UTC), 2026},
-		{time.Date(2026, time.January, 15, 0, 0, 0, 0, time.UTC), 2026},
-	}
-	for _, tc := range cases {
-		if got := domain.ServiceYear(tc.date); got != tc.want {
-			t.Fatalf("ServiceYear(%s) = %d, want %d", tc.date.Format("2006-01-02"), got, tc.want)
-		}
-	}
-}
-
 func TestActivityStatus(t *testing.T) {
 	asOf := domain.Month{Year: 2026, Month: time.March}
 	// window: Oct 2025 .. Mar 2026

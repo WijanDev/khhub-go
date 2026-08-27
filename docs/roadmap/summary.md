@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Tests for ReportsHours and service year](pending/reports-hours-service-year-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests that seed reset is blocked in production](pending/seed-reset-production-guard-tests/idea.md) | 2 | 4 | 2.00 |
 | [Drop leftover Vite starter assets](pending/drop-vite-starter-assets/idea.md) | 1 | 2 | 2.00 |
 | [LICENSE for the public repo](pending/license-file/idea.md) | 1 | 2 | 2.00 |
@@ -76,6 +75,7 @@ On `dev` / staging, not on `main`. Folders live in `uat/`. Same sort as pending.
 | [golangci-lint or go vet + gofmt in CI](uat/golangci-lint-ci/idea.md) | 2 | 4 | 2.00 |
 | [Login rate limit](uat/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
 | [Handler tests for report hour rules](uat/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
+| [Tests for ReportsHours and service year](uat/reports-hours-service-year-tests/idea.md) | 2 | 4 | 2.00 |
 | [Dokploy staging environment](uat/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 
 ## Implemented

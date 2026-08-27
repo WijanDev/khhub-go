@@ -1,7 +1,7 @@
 # Tests for ReportsHours and service year
 
 - **Slug:** reports-hours-service-year-tests
-- **Status:** proposed
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 
