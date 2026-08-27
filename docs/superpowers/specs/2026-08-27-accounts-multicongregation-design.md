@@ -209,7 +209,7 @@ Do not start slice 5 screens that belong to a separate idea’s schema (groups, 
 - **Drop** `shepherding-notes` (storage). Keep a future **attention list / planning** idea.
 - **Replace** `roles-beyond-admin` with this design (same outcome, not a second roles system).
 - **Revise** the summary out-of-scope line: public signup and multi-congregation **SaaS signup** stay out; **one install, many congregations** is in.
-- The fifteen product ideas approved in brainstorming (service-year card, groups, month lock, attention list, privilege history, Memorial, public talks, pioneer goals, self-report, CSV import, 2FA, login throttle, audit log, dark mode, missing-report email) remain separate folders after this spec is accepted. Self-report and 2FA/passkeys overlap this foundation — do not duplicate folders.
+- The fifteen product ideas approved in brainstorming (service-year card, groups, month lock, attention list, privilege history, Memorial, public talks, pioneer goals, self-report, CSV import, 2FA, login throttle, audit log, dark mode, missing-report email) remain separate folders after this spec is accepted. Self-report and 2FA/passkeys overlap this foundation — do not duplicate folders. Memorial attendance later moved into `attendance-duplicate-guard`; `memorial-attendance` is dropped.
 
 ## Open implementation choices (not product questions)
 

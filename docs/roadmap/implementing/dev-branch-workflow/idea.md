@@ -13,4 +13,4 @@
 
 - Git Flow with `release/*` and `hotfix/*` unless we later need it.
 - Deploying production from `dev`.
-- Forcing a second VPS (beta stays `dokploy-beta-environment`).
+- Forcing a second VPS (staging stays `dokploy-staging-environment`).

@@ -1,7 +1,7 @@
 # Copy dashboard totals to the clipboard
 
 - **Slug:** dashboard-copy-totals
-- **Status:** proposed
+- **Status:** in-progress
 - **Merge date:**
 - **App version:**
 

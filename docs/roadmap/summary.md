@@ -10,7 +10,7 @@ Living work lives in this folder only. Agents follow `.agents/skills/roadmap-pla
 
 Imported unchecked items from the retired root `ROADMAP.md` start as `proposed` with first-pass scores. Re-score after a real `implementation-plan.md` rewrite if the work grows.
 
-Dropped folders are omitted from the tables: [`roles-beyond-admin`](dropped/roles-beyond-admin/idea.md), [`shepherding-notes`](dropped/shepherding-notes/idea.md).
+Dropped folders are omitted from the tables: [`roles-beyond-admin`](dropped/roles-beyond-admin/idea.md), [`shepherding-notes`](dropped/shepherding-notes/idea.md), [`memorial-attendance`](dropped/memorial-attendance/idea.md) (absorbed by `attendance-duplicate-guard`).
 
 ## Pending
 
@@ -18,8 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Prevent duplicate attendance rows](pending/attendance-duplicate-guard/idea.md) | 2 | 4 | 2.00 |
-| [Copy dashboard totals to the clipboard](pending/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
 | [golangci-lint or go vet + gofmt in CI](pending/golangci-lint-ci/idea.md) | 2 | 4 | 2.00 |
 | [Login rate limit](pending/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
 | [Handler tests for report hour rules](pending/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
@@ -32,7 +30,6 @@ Sorted by ratio (highest first), then utility, then slug.
 | [CONTRIBUTING.md](pending/contributing-md/idea.md) | 2 | 3 | 1.50 |
 | [Installable PWA shell](pending/pwa-installable-shell/idea.md) | 2 | 3 | 1.50 |
 | [Attention list (shepherding planning)](pending/attention-list/idea.md) | 3 | 4 | 1.33 |
-| [Dokploy beta environment](pending/dokploy-beta-environment/idea.md) | 3 | 4 | 1.33 |
 | [Empty, loading, and error states on every page](pending/empty-loading-error-states/idea.md) | 3 | 4 | 1.33 |
 | [Missing-report list as a first-class view](pending/missing-report-list/idea.md) | 3 | 4 | 1.33 |
 | [Mobile layout pass](pending/mobile-layout-pass/idea.md) | 3 | 4 | 1.33 |
@@ -43,13 +40,14 @@ Sorted by ratio (highest first), then utility, then slug.
 | [SonarCloud and minimum quality bar](pending/sonarcloud-quality-gate/idea.md) | 3 | 4 | 1.33 |
 | [Accounts, publisher portal, multi-congregation](pending/accounts-multicongregation/idea.md) | 5 | 5 | 1.00 |
 | [Archive publishers](pending/archive-publishers/idea.md) | 4 | 4 | 1.00 |
+| [Congregation meeting calendar and attendance uniqueness](pending/attendance-duplicate-guard/idea.md) | 4 | 4 | 1.00 |
+| [Dokploy staging environment](pending/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 | [Field service groups](pending/field-service-groups/idea.md) | 4 | 4 | 1.00 |
 | [Keyboard and screen-reader pass](pending/a11y-pass/idea.md) | 3 | 3 | 1.00 |
 | [Consistent JSON error shape](pending/consistent-json-errors/idea.md) | 3 | 3 | 1.00 |
 | [CSV export of reports and dashboard](pending/export-csv/idea.md) | 3 | 3 | 1.00 |
 | [CSV import](pending/import-csv/idea.md) | 3 | 3 | 1.00 |
 | [Pagination or hard caps on list endpoints](pending/list-pagination/idea.md) | 3 | 3 | 1.00 |
-| [Memorial attendance](pending/memorial-attendance/idea.md) | 3 | 3 | 1.00 |
 | [Missing-report email reminder](pending/missing-report-email/idea.md) | 3 | 3 | 1.00 |
 | [Pioneer hour goals](pending/pioneer-hour-goals/idea.md) | 3 | 3 | 1.00 |
 | [Privilege history](pending/privilege-history/idea.md) | 3 | 3 | 1.00 |
@@ -69,6 +67,7 @@ Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
+| [Copy dashboard totals to the clipboard](implementing/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
 | [PRs target `dev`, not `main`](implementing/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
 
 ## Implemented

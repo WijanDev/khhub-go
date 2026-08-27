@@ -1,4 +1,4 @@
-# Prevent duplicate attendance rows
+# Congregation meeting calendar and attendance uniqueness
 
 - **Slug:** attendance-duplicate-guard
 - **Status:** proposed
@@ -7,8 +7,25 @@
 
 ## Summary
 
-Reject a second midweek or weekend row for the same date so counts stay trustworthy.
+Each congregation owns a versioned weekly timetable (midweek weekday + time, weekend weekday + time) and a dated **exception calendar**. Attendance uniqueness is **per congregation**, never global. Regular meetings, the Memorial, special visits, and assembly (or similar) cancellations all go through that calendar so the secretary cannot double-count or enter a meeting that did not happen.
+
+Absorbs `memorial-attendance`.
+
+## Rules
+
+- Unique attendance key: `(congregation_id, meeting_date, kind)`.
+- Regular `kind` values: `midweek`, `weekend`. The date must match the schedule **version in force** that day, unless an exception cancels or replaces that meeting.
+- Exception types (per congregation, date or date range):
+  - **Memorial** — own attendance row (`kind=memorial`), not a fake weekend. One Memorial row per congregation per date. Does not count in midweek/weekend month averages.
+  - **Special visit** — own attendance row (`kind=special_visit`). May add a meeting and/or replace the regular midweek or weekend on those dates.
+  - **Assembly** (circuit assembly, regional convention, or similar) — cancels the local midweek and/or weekend in the range. No local regular attendance row for a cancelled meeting. No assembly headcount in this slice (people attended elsewhere).
+- Until `accounts-multicongregation` lands, the install is one implicit congregation.
 
 ## Out of scope
 
-- Editing history across service years.
+- Midweek assignments, public talks, or a full meeting program.
+- Per-publisher check-in (Memorial or otherwise).
+- jw.org reporting APIs or submitting S-88 automatically.
+- Two standing midweek meetings every week (an extra meeting is a dated special-visit exception, not a second template slot).
+- Editing attendance across service years as a bulk tool.
+- Sharing one timetable across congregations.
