@@ -38,8 +38,8 @@ Tags: git SHA and `latest`. After the first push, set both GHCR packages to **pu
    - `khhub.app` → `web` port 80
    - `api.khhub.app` → `api` port 8080
 
-4. GitHub Actions secret `DOKPLOY_DEPLOY_HOOK` = the compose webhook URL from **https://admin.wijan.dev** → khhub compose → Deployments. Copy it there (do not commit it). Push to `main` then deploys.
-5. Postgres dumps go to the Cloudflare R2 bucket `khhub-backups` (EU). Add an S3 destination in Dokploy and a daily compose backup of service `postgres`, database `khhub`. This database stores congregation personal data.
+4. GitHub Actions secret `DOKPLOY_DEPLOY_HOOK` = the compose webhook URL from **https://admin.wijan.dev** → khhub compose → Deployments. Copy it there (do not commit it). A merge to `main` (release PR from `dev`) then deploys.
+5. Postgres dumps go to the Cloudflare R2 bucket `khhub-backups` (EU). Add an S3 destination in Dokploy and a **weekly Sunday midnight** compose backup of service `postgres`, database `khhub`. This database stores congregation personal data.
 6. Firewall: 22/80/443 only. Do not expose 5432 or 8080.
 7. After the first login, change the admin password under **Congregación**.
 
@@ -63,9 +63,9 @@ Compose backup (khhub → Backups):
 - Type: compose / Postgres
 - Service: `postgres`
 - Database: `khhub`
-- Schedule: `0 3 * * *` (03:00 UTC daily)
-- Prefix: `khhub/postgres`
-- Keep latest: `14`
+- Schedule: **Sunday midnight** as set in the Dokploy UI (typical cron `0 0 * * 0`). Dokploy cron is usually **UTC** — Sunday 00:00 UTC is 02:00 CEST / 01:00 CET. Confirm the timezone shown in the panel.
+- Prefix: Dokploy chooses a compose-service prefix (first verified dump: `compose-…_postgres/YYYY-MM-DD….sql.gz`). Do not assume `khhub/postgres/`.
+- Keep latest: `14` (about three months of weekly dumps if unchanged)
 
 R2 free tier covers 10 GB-month and well above our dump size. Overages are Cloudflare R2 catalog rates, not Hetzner.
 
@@ -74,7 +74,7 @@ Optional extra (Hetzner, billed): whole-VPS automatic backups are **20% of the c
 ## Restore
 
 1. In Dokploy, open the khhub compose → **Backups** → **Restore**.
-2. Pick destination `r2-khhub-backups` and the dump (prefix `khhub/postgres/`).
+2. Pick destination `r2-khhub-backups` and the dump (keys look like `compose-…_postgres/*.sql.gz`).
 3. Database name: `khhub`.
 4. Stop `api` (and `web` if you want the UI offline) before restore if Dokploy does not do it: compose → Stop, or `docker stop` the `api` container on the VPS.
 5. Run restore. Dokploy uses `pg_dump -Fc` + gzip on the way out; its Restore button uses the matching restore command.

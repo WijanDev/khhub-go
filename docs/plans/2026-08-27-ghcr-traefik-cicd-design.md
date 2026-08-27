@@ -32,8 +32,9 @@ Browser
   └─ https://api.khhub.app      → Traefik → api :8080
 https://admin.wijan.dev         → Dokploy panel (personal host)
 
-GitHub main
-  → Actions build/push
+GitHub `dev` (feature PRs)
+GitHub `main` (release PR from `dev`)
+  → Actions build/push images
   → ghcr.io/wijandev/khhub-api:<sha>|latest
   → ghcr.io/wijandev/khhub-web:<sha>|latest
   → Dokploy compose pull + up (webhook or API)
@@ -85,7 +86,7 @@ Tags per build: git SHA (immutable) and `latest` (Dokploy default pull). Package
 
 ## CI
 
-Workflow on `push`/`pull_request` to `main`:
+Workflow on `push`/`pull_request` to `dev` and `main`:
 
 1. `go test ./...` from `backend/`.
 2. `npm ci && npm run lint && npm run build` from `frontend/` (PR can use a dummy `VITE_API_URL`).

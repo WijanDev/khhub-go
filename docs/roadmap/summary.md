@@ -20,7 +20,6 @@ Sorted by ratio (highest first), then utility, then slug.
 | --- | --- | --- | --- |
 | [Prevent duplicate attendance rows](pending/attendance-duplicate-guard/idea.md) | 2 | 4 | 2.00 |
 | [Copy dashboard totals to the clipboard](pending/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
-| [PRs target `dev`, not `main`](pending/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
 | [golangci-lint or go vet + gofmt in CI](pending/golangci-lint-ci/idea.md) | 2 | 4 | 2.00 |
 | [Login rate limit](pending/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
 | [Handler tests for report hour rules](pending/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
@@ -70,7 +69,7 @@ Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| — | — | — | — |
+| [PRs target `dev`, not `main`](implementing/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
 
 ## Implemented
 

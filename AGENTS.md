@@ -113,6 +113,13 @@ Query and Table do not ship Intent skills at the versions we use; use the vendor
 
 Catalog and sources: [`.agents/README.md`](.agents/README.md).
 
+## Git
+
+- Default integration branch is **`dev`**. Open feature PRs against `dev`.
+- Do **not** merge a feature branch into `main`.
+- `main` is production. Release by opening a PR **`dev` → `main`**. That is the only path that should publish GHCR images and trigger Dokploy.
+- Dependabot PRs target `dev`.
+
 ## Security
 
 - Congregation data is personal. Default to least privilege, no public listing of publishers, no debug dumps.

@@ -37,6 +37,10 @@ Makefile shortcuts: `make dev-db`, `make api`, `make web`, `make test`.
 
 1 September – 31 August. Reports follow current practice: everyone records whether they shared in the ministry and their Bible studies; only pioneers (and auxiliary pioneers that month) record hours.
 
+## Git
+
+The default branch is **`dev`**. Open pull requests against `dev`. Promote a release with a PR from `dev` to `main`. Pushing `main` builds GHCR images and deploys khhub.app.
+
 ## Deploy
 
 See [docs/deploy-dokploy.md](docs/deploy-dokploy.md).

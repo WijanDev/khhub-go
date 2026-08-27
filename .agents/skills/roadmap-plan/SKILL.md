@@ -74,7 +74,7 @@ When the human asks to build the idea:
 
 ## Mark implemented
 
-Only after the work is merged to `main` and deployed:
+Only after the work is merged to `main` (release PR from `dev`) and deployed:
 
 1. Set `idea.md` status to `implemented`.
 2. Record **merge date** (`YYYY-MM-DD` of the merge commit on `main`).
