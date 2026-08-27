@@ -31,17 +31,17 @@ func NewRouter(cfg config.Config, q *store.Queries, resetSeed func(ctx context.C
 		}))
 	}
 
-	r.GET("/api/health", func(c *gin.Context) {
+	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"ok": true})
 	})
 
 	limiter := newLoginLimiter()
 	r.Use(sessionMiddleware(cfg, q))
 
-	r.POST("/api/auth/login", postLogin(cfg, q, limiter))
-	r.POST("/api/auth/logout", postLogout(cfg, q))
+	r.POST("/auth/login", postLogin(cfg, q, limiter))
+	r.POST("/auth/logout", postLogout(cfg, q))
 
-	authed := r.Group("/api")
+	authed := r.Group("/")
 	authed.Use(requireAuth())
 	{
 		authed.GET("/auth/me", getMe())

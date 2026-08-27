@@ -22,7 +22,7 @@ export function CongregationPage() {
   const qc = useQueryClient();
   const q = useQuery({
     queryKey: ["congregation"],
-    queryFn: () => api<Congregation>("/api/congregation"),
+    queryFn: () => api<Congregation>("/congregation"),
   });
   const [form, setForm] = useState<Congregation>({
     name: "",
@@ -39,7 +39,7 @@ export function CongregationPage() {
   }, [q.data]);
 
   const resetSeed = useMutation({
-    mutationFn: () => api("/api/dev/reset-seed", { method: "POST" }),
+    mutationFn: () => api("/dev/reset-seed", { method: "POST" }),
     onSuccess: async () => {
       await qc.invalidateQueries();
       setMsg("Datos de demostración restablecidos.");
@@ -49,7 +49,7 @@ export function CongregationPage() {
 
   const save = useMutation({
     mutationFn: () =>
-      api<Congregation>("/api/congregation", {
+      api<Congregation>("/congregation", {
         method: "PUT",
         body: JSON.stringify(form),
       }),
@@ -64,7 +64,7 @@ export function CongregationPage() {
     e.preventDefault();
     setMsg("");
     try {
-      await api("/api/auth/change-password", {
+      await api("/auth/change-password", {
         method: "POST",
         body: JSON.stringify(pw),
       });

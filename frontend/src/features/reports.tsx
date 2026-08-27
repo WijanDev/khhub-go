@@ -16,7 +16,7 @@ export function ReportsPage() {
   const [{ year, month }, setPeriod] = useState(nowPeriod);
   const q = useQuery({
     queryKey: ["reports", year, month],
-    queryFn: () => api<ReportsResponse>(`/api/reports?year=${year}&month=${month}`),
+    queryFn: () => api<ReportsResponse>(`/reports?year=${year}&month=${month}`),
   });
   const [rows, setRows] = useState<ReportRow[]>([]);
 
@@ -30,7 +30,7 @@ export function ReportsPage() {
 
   const save = useMutation({
     mutationFn: () =>
-      api("/api/reports", {
+      api("/reports", {
         method: "PUT",
         body: JSON.stringify({
           year,

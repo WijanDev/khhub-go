@@ -6,12 +6,20 @@ export class ApiError extends Error {
   }
 }
 
+function apiURL(path: string): string {
+  const base = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
+  if (!path.startsWith("/")) {
+    throw new Error("api() path must start with /");
+  }
+  return `${base}${path}`;
+}
+
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const headers = new Headers(init?.headers);
   if (init?.body && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
   }
-  const res = await fetch(path, {
+  const res = await fetch(apiURL(path), {
     ...init,
     credentials: "include",
     headers,

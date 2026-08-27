@@ -1,38 +1,46 @@
 # khhub
 
-Herramienta personal para la operación de una congregación: publicadores, informes mensuales de predicación y asistencia. **No es software oficial**, no habla con jw.org y no sustituye las tarjetas S-21 ni JW Hub.
+Personal tool for congregation operations: publishers, monthly field service reports, and meeting attendance. **Not official software.** It does not talk to jw.org and does not replace S-21 cards or JW Hub.
 
-Interfaz en español. Código y API en inglés.
+The UI is in Spanish. Code, API, and documentation are in English.
 
-## Requisitos locales
+Dashboard totals are copied to the branch by hand.
+
+## Requirements
 
 - Go 1.24+
 - Node 22+
-- Docker (solo para Postgres en desarrollo)
+- Docker (Postgres only in development)
 
-## Arranque
+## Local setup
 
 ```bash
 cp .env.example .env
-# edita ADMIN_PASSWORD
+# set ADMIN_PASSWORD (and ADMIN_EMAIL if you want)
 docker compose -f docker-compose.dev.yml --env-file .env up -d
 cd backend && go run ./cmd/api   # loads ../.env automatically
 ```
 
-En otra terminal:
+In another terminal:
 
 ```bash
 cd frontend && npm install && npm run dev
 ```
 
-Abre http://localhost:5173 y entra con `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
+Copy `.env.example` so Vite has `VITE_API_URL=http://127.0.0.1:8080`. Open http://localhost:5173 and sign in with `ADMIN_EMAIL` / `ADMIN_PASSWORD`. The browser calls the API on port 8080 (CORS).
 
-Recarga del API: `go install github.com/air-verse/air@latest` y `air` dentro de `backend/`.
+API reload: `go install github.com/air-verse/air@latest` and run `air` inside `backend/`.
 
-## Año de servicio
+Makefile shortcuts: `make dev-db`, `make api`, `make web`, `make test`.
 
-1 de septiembre – 31 de agosto. Los informes siguen la práctica actual: todos marcan si participaron y los estudios; solo los precursores (y PA del mes) registran horas.
+## Service year
 
-## Despliegue
+1 September – 31 August. Reports follow current practice: everyone records whether they shared in the ministry and their Bible studies; only pioneers (and auxiliary pioneers that month) record hours.
 
-Ver [docs/deploy-dokploy.md](docs/deploy-dokploy.md).
+## Deploy
+
+See [docs/deploy-dokploy.md](docs/deploy-dokploy.md).
+
+## Agents
+
+Project rules: [AGENTS.md](AGENTS.md). Living checklist: [ROADMAP.md](ROADMAP.md). Skills (Cursor-agnostic): [.agents/README.md](.agents/README.md).

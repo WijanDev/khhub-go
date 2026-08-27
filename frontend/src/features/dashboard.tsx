@@ -20,7 +20,7 @@ export function DashboardPage() {
   const [{ year, month }, setPeriod] = useState(nowPeriod);
   const q = useQuery({
     queryKey: ["dashboard", year, month],
-    queryFn: () => api<Dashboard>(`/api/dashboard?year=${year}&month=${month}`),
+    queryFn: () => api<Dashboard>(`/dashboard?year=${year}&month=${month}`),
   });
   const d = q.data;
 

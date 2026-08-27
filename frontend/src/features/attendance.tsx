@@ -26,7 +26,7 @@ export function AttendancePage() {
   const { from, to } = useMemo(() => monthBounds(year, month), [year, month]);
   const q = useQuery({
     queryKey: ["attendance", from, to],
-    queryFn: () => api<Attendance[]>(`/api/attendance?from=${from}&to=${to}`),
+    queryFn: () => api<Attendance[]>(`/attendance?from=${from}&to=${to}`),
   });
 
   const [date, setDate] = useState(from);
@@ -36,7 +36,7 @@ export function AttendancePage() {
 
   const save = useMutation({
     mutationFn: () =>
-      api("/api/attendance", {
+      api("/attendance", {
         method: "PUT",
         body: JSON.stringify({
           date,
@@ -52,7 +52,7 @@ export function AttendancePage() {
   });
 
   const del = useMutation({
-    mutationFn: (id: string) => api(`/api/attendance/${id}`, { method: "DELETE" }),
+    mutationFn: (id: string) => api(`/attendance/${id}`, { method: "DELETE" }),
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["attendance"] });
       await qc.invalidateQueries({ queryKey: ["dashboard"] });

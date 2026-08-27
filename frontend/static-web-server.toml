@@ -1,0 +1,17 @@
+[general]
+host = "::"
+port = 80
+root = "/public"
+page-fallback = "/index.html"
+cache-control-headers = true
+compression = true
+security-headers = true
+
+[advanced]
+
+[[advanced.headers]]
+source = "**"
+[advanced.headers.headers]
+X-Frame-Options = "DENY"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "same-origin"

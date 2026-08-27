@@ -20,7 +20,7 @@ export function LoginPage() {
     setPending(true);
     setError("");
     try {
-      await api("/api/auth/login", {
+      await api("/auth/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });

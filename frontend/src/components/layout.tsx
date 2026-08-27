@@ -18,15 +18,15 @@ export function AppLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const cong = useQuery({
     queryKey: ["congregation"],
-    queryFn: () => api<Congregation>("/api/congregation"),
+    queryFn: () => api<Congregation>("/congregation"),
   });
   const me = useQuery({
     queryKey: ["me"],
-    queryFn: () => api<User>("/api/auth/me"),
+    queryFn: () => api<User>("/auth/me"),
   });
 
   async function logout() {
-    await api("/api/auth/logout", { method: "POST" });
+    await api("/auth/logout", { method: "POST" });
     await navigate({ to: "/login" });
   }
 

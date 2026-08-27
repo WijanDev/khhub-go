@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
 
 async function requireSession() {
   try {
-    await api("/api/auth/me");
+    await api("/auth/me");
   } catch (err) {
     if (err instanceof ApiError && err.status === 401) {
       throw redirect({ to: "/login" });

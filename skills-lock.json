@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "skills": {
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "computedHash": "0eb8e9ba100985eb4da20c46807268cafd72ec1c4ea58132edf9be6c469867fe"
+    },
+    "developer-docs-drafting": {
+      "source": "lvtd-llc/skills",
+      "sourceType": "github",
+      "skillPath": "skills/developer-docs-drafting/SKILL.md",
+      "computedHash": "c331c13e95efc726494fef96d572e718cd1f97cc4f0d87d37c2df0c4e079b66c"
+    },
+    "developer-docs-planning": {
+      "source": "lvtd-llc/skills",
+      "sourceType": "github",
+      "skillPath": "skills/developer-docs-planning/SKILL.md",
+      "computedHash": "963c9c9d3c9415b61a31e3f2558b9e31f09223899d8f3c1888f64614e87bc7bd"
+    },
+    "docs-ai-prd": {
+      "source": "vasilyu1983/ai-agents-public",
+      "sourceType": "github",
+      "skillPath": "frameworks/shared-skills/skills/docs-ai-prd/SKILL.md",
+      "computedHash": "0e62aa49be70665677a4ac9bb80ee7039ce2af4e3f8ab2c58f08df8e763b3eb7"
+    },
+    "dokploy-deploy": {
+      "source": "fcakyon/claude-codex-settings",
+      "sourceType": "github",
+      "skillPath": "plugins/dokploy-skills/skills/dokploy-deploy/SKILL.md",
+      "computedHash": "2a3ebc22387bf94384de48a8dbc57c46456e3b772a677c1924a4cbdaaa1549b6"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/executing-plans/SKILL.md",
+      "computedHash": "78a07800ee99a5861ae10be59d79fad085fdca10444e8aaeb2691597e357cff8"
+    },
+    "golang-gin-api": {
+      "source": "henriqueatila/golang-gin-best-practices",
+      "sourceType": "github",
+      "skillPath": "skills/golang-gin-api/SKILL.md",
+      "computedHash": "cd5e66cf1dfc4e61efe2a9a961d3bfe5a53710c0d510c0156a3ebe66d44f847f"
+    },
+    "golang-gin-psql-dba": {
+      "source": "henriqueatila/golang-gin-best-practices",
+      "sourceType": "github",
+      "skillPath": "skills/golang-gin-psql-dba/SKILL.md",
+      "computedHash": "165d72d0aae37a7a5f66920736a052f29a9dd613c65b6539a627d636b58ae9c3"
+    },
+    "golang-gin-testing": {
+      "source": "henriqueatila/golang-gin-best-practices",
+      "sourceType": "github",
+      "skillPath": "skills/golang-gin-testing/SKILL.md",
+      "computedHash": "08268d41b5c8fe9e5a091db1d213e5b7652f35f67083fb4fa0ed812e384ae58b"
+    },
+    "hetzner-deploy": {
+      "source": "fcakyon/claude-codex-settings",
+      "sourceType": "github",
+      "skillPath": "plugins/hetzner-skills/skills/hetzner-deploy/SKILL.md",
+      "computedHash": "dd7476fb93c36f2b65156026f5d3875542e1da7ee5d1783fb4431c5680f90eaa"
+    },
+    "requesting-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/requesting-code-review/SKILL.md",
+      "computedHash": "004f340ae65811095d6a9bb0a759c87d0a8085c5e705dbb019b011626293d2e9"
+    },
+    "systematic-debugging": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/systematic-debugging/SKILL.md",
+      "computedHash": "a2750dfbaed1690da73b120254892c4f926b4576cb82eb16fc877783941fe39b"
+    },
+    "tanstack-query": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-query/skills/tanstack-query/SKILL.md",
+      "computedHash": "bfe2977e92667b84efeb4b12e5c3010807934aab2f7ac2b059241cd3da2a3e6e"
+    },
+    "tanstack-query-best-practices": {
+      "source": "deckardger/tanstack-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/tanstack-query/SKILL.md",
+      "computedHash": "addf4358803d7746f7fe0475a3370d835775217e00dd5fc7bbd8a7d6c53d81e5"
+    },
+    "tanstack-router": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-router/skills/tanstack-router/SKILL.md",
+      "computedHash": "6aba9066ca12bf6bb6eebec9c58f5d4e33b6b06e2b11bf263f5b7a5c18edc389"
+    },
+    "tanstack-router-best-practices": {
+      "source": "deckardger/tanstack-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/tanstack-router/SKILL.md",
+      "computedHash": "090ae367732367c6a9a693dde029072e0eda8463e2a1047da76a4ec9b7d58b63"
+    },
+    "tanstack-table": {
+      "source": "tanstack-skills/tanstack-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/tanstack-table/skills/tanstack-table/SKILL.md",
+      "computedHash": "5527e42e541ac26fc1157e49d58c399b95e44eb276ef3caa7576ab138558d593"
+    },
+    "verification-before-completion": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/verification-before-completion/SKILL.md",
+      "computedHash": "b529822bdac4b197b180fe12225cff86b930b65910435103c10622df7f041651"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "computedHash": "27c75044e444a4fc68798c3f799dc23eaff3a6bfabff32e6ad75bb20f881c094"
+    }
+  }
+}

@@ -98,8 +98,8 @@ export function PublishersPage() {
   const [editing, setEditing] = useState<Publisher | null | "new">(null);
   const [form, setForm] = useState<PublisherForm>(emptyPublisher);
 
-  const pubs = useQuery({ queryKey: ["publishers"], queryFn: () => api<Publisher[]>("/api/publishers") });
-  const homes = useQuery({ queryKey: ["households"], queryFn: () => api<Household[]>("/api/households") });
+  const pubs = useQuery({ queryKey: ["publishers"], queryFn: () => api<Publisher[]>("/publishers") });
+  const homes = useQuery({ queryKey: ["households"], queryFn: () => api<Household[]>("/households") });
 
   const filtered = useMemo(() => {
     return (pubs.data ?? []).filter((p) => {
@@ -165,9 +165,9 @@ export function PublishersPage() {
   const savePub = useMutation({
     mutationFn: async () => {
       if (editing && editing !== "new") {
-        return api(`/api/publishers/${editing.id}`, { method: "PUT", body: JSON.stringify(payload(form)) });
+        return api(`/publishers/${editing.id}`, { method: "PUT", body: JSON.stringify(payload(form)) });
       }
-      return api("/api/publishers", { method: "POST", body: JSON.stringify(payload(form)) });
+      return api("/publishers", { method: "POST", body: JSON.stringify(payload(form)) });
     },
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["publishers"] });
@@ -176,7 +176,7 @@ export function PublishersPage() {
   });
 
   const delPub = useMutation({
-    mutationFn: (id: string) => api(`/api/publishers/${id}`, { method: "DELETE" }),
+    mutationFn: (id: string) => api(`/publishers/${id}`, { method: "DELETE" }),
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["publishers"] });
       setEditing(null);
@@ -373,8 +373,8 @@ function HouseholdsPanel({ homes }: { homes: Household[] }) {
   const save = useMutation({
     mutationFn: async () => {
       const body = JSON.stringify({ name, address, notes });
-      if (editing) return api(`/api/households/${editing.id}`, { method: "PUT", body });
-      return api("/api/households", { method: "POST", body });
+      if (editing) return api(`/households/${editing.id}`, { method: "PUT", body });
+      return api("/households", { method: "POST", body });
     },
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["households"] });
@@ -386,7 +386,7 @@ function HouseholdsPanel({ homes }: { homes: Household[] }) {
   });
 
   const del = useMutation({
-    mutationFn: (id: string) => api(`/api/households/${id}`, { method: "DELETE" }),
+    mutationFn: (id: string) => api(`/households/${id}`, { method: "DELETE" }),
     onSuccess: async () => qc.invalidateQueries({ queryKey: ["households"] }),
   });
 
