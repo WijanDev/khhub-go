@@ -1,7 +1,7 @@
 # Handler tests for report hour rules
 
 - **Slug:** report-upsert-handler-tests
-- **Status:** proposed
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 

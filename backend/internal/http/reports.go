@@ -30,6 +30,15 @@ type reportsBatchRequest struct {
 	Reports []reportUpsert `json:"reports" binding:"required,dive"`
 }
 
+// reportStore is the store surface used by report upsert and activity recompute.
+// *store.Queries implements it.
+type reportStore interface {
+	GetPublisherForReport(ctx context.Context, id uuid.UUID) (store.GetPublisherForReportRow, error)
+	UpsertReport(ctx context.Context, arg store.UpsertReportParams) (store.FieldServiceReport, error)
+	ListSharesForPublisher(ctx context.Context, arg store.ListSharesForPublisherParams) ([]store.ListSharesForPublisherRow, error)
+	UpdatePublisherActivity(ctx context.Context, arg store.UpdatePublisherActivityParams) error
+}
+
 func parseYearMonth(c *gin.Context) (int, int, bool) {
 	now := time.Now()
 	year, err := strconv.Atoi(c.DefaultQuery("year", strconv.Itoa(now.Year())))
@@ -102,7 +111,7 @@ func listReports(q *store.Queries) gin.HandlerFunc {
 	}
 }
 
-func putReports(q *store.Queries) gin.HandlerFunc {
+func putReports(q reportStore) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req reportsBatchRequest
 		if err := c.ShouldBindJSON(&req); err != nil {
@@ -160,7 +169,7 @@ func putReports(q *store.Queries) gin.HandlerFunc {
 	}
 }
 
-func recomputeActivity(ctx context.Context, q *store.Queries, publisherID uuid.UUID, asOf domain.Month) error {
+func recomputeActivity(ctx context.Context, q reportStore, publisherID uuid.UUID, asOf domain.Month) error {
 	window := domain.LastNMonths(asOf, 6)
 	from := window[0]
 	to := window[len(window)-1]

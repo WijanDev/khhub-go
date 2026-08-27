@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Handler tests for report hour rules](pending/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests for ReportsHours and service year](pending/reports-hours-service-year-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests that seed reset is blocked in production](pending/seed-reset-production-guard-tests/idea.md) | 2 | 4 | 2.00 |
 | [Drop leftover Vite starter assets](pending/drop-vite-starter-assets/idea.md) | 1 | 2 | 2.00 |
@@ -26,7 +25,9 @@ Sorted by ratio (highest first), then utility, then slug.
 | [docs/architecture.md](pending/architecture-doc/idea.md) | 2 | 3 | 1.50 |
 | [Change admin email](pending/change-admin-email/idea.md) | 2 | 3 | 1.50 |
 | [CONTRIBUTING.md](pending/contributing-md/idea.md) | 2 | 3 | 1.50 |
+| [khhub-go skill and backend alignment](pending/khhub-go/idea.md) | 2 | 3 | 1.50 |
 | [Installable PWA shell](pending/pwa-installable-shell/idea.md) | 2 | 3 | 1.50 |
+| [Roadmap progress counts and planned versions](pending/roadmap-progress/idea.md) | 2 | 3 | 1.50 |
 | [Attention list (shepherding planning)](pending/attention-list/idea.md) | 3 | 4 | 1.33 |
 | [Empty, loading, and error states on every page](pending/empty-loading-error-states/idea.md) | 3 | 4 | 1.33 |
 | [Missing-report list as a first-class view](pending/missing-report-list/idea.md) | 3 | 4 | 1.33 |
@@ -74,6 +75,7 @@ On `dev` / staging, not on `main`. Folders live in `uat/`. Same sort as pending.
 | [PRs target `dev`, not `main`](uat/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
 | [golangci-lint or go vet + gofmt in CI](uat/golangci-lint-ci/idea.md) | 2 | 4 | 2.00 |
 | [Login rate limit](uat/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
+| [Handler tests for report hour rules](uat/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
 | [Dokploy staging environment](uat/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 
 ## Implemented
