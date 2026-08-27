@@ -62,9 +62,7 @@ Sorted by ratio (highest first), then utility, then slug.
 
 Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 
-| Idea | Cost | Utility | Ratio |
-| --- | --- | --- | --- |
-| [Path-aware GHCR publishes and split Dokploy apps](implementing/path-aware-ghcr-deploys/idea.md) | 3 | 3 | 1.00 |
+—
 
 ## UAT
 
@@ -79,6 +77,7 @@ On `dev` / staging, not on `main`. Folders live in `uat/`. Same sort as pending.
 | [Handler tests for report hour rules](uat/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests for ReportsHours and service year](uat/reports-hours-service-year-tests/idea.md) | 2 | 4 | 2.00 |
 | [Dokploy staging environment](uat/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
+| [Path-aware GHCR publishes and split Dokploy apps](uat/path-aware-ghcr-deploys/idea.md) | 3 | 3 | 1.00 |
 
 ## Implemented
 

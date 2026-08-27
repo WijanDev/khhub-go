@@ -1,7 +1,7 @@
 # Path-aware GHCR publishes and split Dokploy apps
 
 - **Slug:** path-aware-ghcr-deploys
-- **Status:** in-progress
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 
