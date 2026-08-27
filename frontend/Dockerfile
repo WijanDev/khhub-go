@@ -11,4 +11,5 @@ FROM ghcr.io/static-web-server/static-web-server:2
 COPY --from=build /app/dist /public
 COPY static-web-server.toml /etc/config.toml
 ENV SERVER_CONFIG_FILE=/etc/config.toml
+ENV SERVER_FALLBACK_PAGE=/public/index.html
 EXPOSE 80

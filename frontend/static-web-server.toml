@@ -2,7 +2,8 @@
 host = "::"
 port = 80
 root = "/public"
-page-fallback = "/index.html"
+# Independent path (not under root). If this file is missing, SWS disables SPA fallback.
+page-fallback = "/public/index.html"
 cache-control-headers = true
 compression = true
 security-headers = true
