@@ -3,8 +3,6 @@ package http
 import (
 	"context"
 	"net/http"
-	"sync"
-	"time"
 
 	"khhub/internal/auth"
 	"khhub/internal/config"
@@ -68,38 +66,4 @@ func requireAuth() gin.HandlerFunc {
 		}
 		c.Next()
 	}
-}
-
-type loginLimiter struct {
-	mu      sync.Mutex
-	hits    map[string][]time.Time
-	window  time.Duration
-	maxHits int
-}
-
-func newLoginLimiter() *loginLimiter {
-	return &loginLimiter{
-		hits:    make(map[string][]time.Time),
-		window:  15 * time.Minute,
-		maxHits: 10,
-	}
-}
-
-func (l *loginLimiter) allow(ip string) bool {
-	l.mu.Lock()
-	defer l.mu.Unlock()
-	now := time.Now()
-	cutoff := now.Add(-l.window)
-	kept := l.hits[ip][:0]
-	for _, t := range l.hits[ip] {
-		if t.After(cutoff) {
-			kept = append(kept, t)
-		}
-	}
-	if len(kept) >= l.maxHits {
-		l.hits[ip] = kept
-		return false
-	}
-	l.hits[ip] = append(kept, now)
-	return true
 }

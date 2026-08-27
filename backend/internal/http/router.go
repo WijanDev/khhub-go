@@ -17,6 +17,8 @@ func NewRouter(cfg config.Config, q *store.Queries, resetSeed func(ctx context.C
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.New()
+	// Traefik sits on the Docker network; trust private hops so ClientIP is the browser.
+	_ = r.SetTrustedProxies([]string{"127.0.0.1", "::1", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"})
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
 	r.Use(secureHeaders())

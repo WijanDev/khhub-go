@@ -1,7 +1,10 @@
 package http
 
 import (
+	"log/slog"
 	"net/http"
+	"strconv"
+	"strings"
 	"time"
 
 	"khhub/internal/auth"
@@ -33,20 +36,27 @@ func clearSessionCookie(c *gin.Context, cfg config.Config) {
 
 func postLogin(cfg config.Config, q sessionQuerier, limiter *loginLimiter) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if !limiter.allow(c.ClientIP()) {
-			jsonError(c, http.StatusTooManyRequests, "demasiados intentos; espera unos minutos")
-			return
-		}
 		var req loginRequest
 		if err := c.ShouldBindJSON(&req); err != nil {
 			jsonError(c, http.StatusBadRequest, "correo o contraseña no válidos")
 			return
 		}
-		user, err := q.GetUserByEmail(c.Request.Context(), trim(req.Email))
+		email := trim(req.Email)
+		ip := c.ClientIP()
+		if limiter.blocked(ip, email) {
+			slog.Warn("login locked out", "ip", ip, "email", strings.ToLower(email))
+			c.Header("Retry-After", strconv.Itoa(int(limiter.window.Seconds())))
+			jsonError(c, http.StatusTooManyRequests, "demasiados intentos; espera unos minutos")
+			return
+		}
+		user, err := q.GetUserByEmail(c.Request.Context(), email)
 		if err != nil || !auth.CheckPassword(user.PasswordHash, req.Password) {
+			limiter.fail(ip, email)
+			slog.Info("login failed", "ip", ip, "email", strings.ToLower(email))
 			jsonError(c, http.StatusUnauthorized, "correo o contraseña incorrectos")
 			return
 		}
+		limiter.clear(ip, email)
 		plain, hash, err := auth.NewSessionToken()
 		if err != nil {
 			jsonError(c, http.StatusInternalServerError, "no se pudo iniciar sesión")

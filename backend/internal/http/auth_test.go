@@ -90,10 +90,14 @@ func testAuthCfg() config.Config {
 }
 
 func authTestHandler(q sessionQuerier) http.Handler {
+	return authTestHandlerWithLimiter(q, newLoginLimiter())
+}
+
+func authTestHandlerWithLimiter(q sessionQuerier, limiter *loginLimiter) http.Handler {
 	cfg := testAuthCfg()
 	r := gin.New()
 	r.Use(sessionMiddleware(cfg, q))
-	r.POST("/auth/login", postLogin(cfg, q, newLoginLimiter()))
+	r.POST("/auth/login", postLogin(cfg, q, limiter))
 	r.POST("/auth/logout", postLogout(cfg, q))
 	authed := r.Group("/")
 	authed.Use(requireAuth())
@@ -102,6 +106,16 @@ func authTestHandler(q sessionQuerier) http.Handler {
 		c.JSON(http.StatusOK, gin.H{"ok": true})
 	})
 	return r
+}
+
+func postLoginRequest(h http.Handler, email, password string) *httptest.ResponseRecorder {
+	body := `{"email":"` + email + `","password":"` + password + `"}`
+	req := httptest.NewRequest(http.MethodPost, "/auth/login", strings.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+	req.RemoteAddr = "192.0.2.10:1234"
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, req)
+	return rec
 }
 
 func sessionCookie(rec *httptest.ResponseRecorder) *http.Cookie {
@@ -284,5 +298,55 @@ func TestProtectedRouteWithoutCookieOnFullRouter(t *testing.T) {
 	}
 	if payload.Error != "no autenticado" {
 		t.Fatalf("error: %q", payload.Error)
+	}
+}
+
+func TestLoginNthFailureReturns429(t *testing.T) {
+	t.Parallel()
+	limiter := newLoginLimiterWith(3, time.Hour)
+	h := authTestHandlerWithLimiter(newMemorySessions(), limiter)
+	for i := 0; i < 3; i++ {
+		rec := postLoginRequest(h, "admin@example.com", "wrong-password")
+		if rec.Code != http.StatusUnauthorized {
+			t.Fatalf("fail %d: got %d %s", i+1, rec.Code, rec.Body.String())
+		}
+	}
+	rec := postLoginRequest(h, "admin@example.com", "wrong-password")
+	if rec.Code != http.StatusTooManyRequests {
+		t.Fatalf("N+1: got %d %s", rec.Code, rec.Body.String())
+	}
+	var payload struct {
+		Error string `json:"error"`
+	}
+	if err := json.Unmarshal(rec.Body.Bytes(), &payload); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(payload.Error, "demasiados") {
+		t.Fatalf("error: %q", payload.Error)
+	}
+	if rec.Header().Get("Retry-After") == "" {
+		t.Fatal("expected Retry-After")
+	}
+}
+
+func TestLoginSuccessClearsRateLimit(t *testing.T) {
+	t.Parallel()
+	limiter := newLoginLimiterWith(3, time.Hour)
+	h := authTestHandlerWithLimiter(newMemorySessions(), limiter)
+	for i := 0; i < 2; i++ {
+		rec := postLoginRequest(h, "admin@example.com", "wrong-password")
+		if rec.Code != http.StatusUnauthorized {
+			t.Fatalf("fail %d: got %d", i+1, rec.Code)
+		}
+	}
+	ok := postLoginRequest(h, "admin@example.com", testPassword)
+	if ok.Code != http.StatusOK {
+		t.Fatalf("success: got %d %s", ok.Code, ok.Body.String())
+	}
+	for i := 0; i < 3; i++ {
+		rec := postLoginRequest(h, "admin@example.com", "wrong-password")
+		if rec.Code != http.StatusUnauthorized {
+			t.Fatalf("after clear fail %d: got %d %s", i+1, rec.Code, rec.Body.String())
+		}
 	}
 }

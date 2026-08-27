@@ -1,7 +1,7 @@
 # Login rate limit
 
 - **Slug:** login-rate-limit
-- **Status:** proposed
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 

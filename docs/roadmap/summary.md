@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Login rate limit](pending/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
 | [Handler tests for report hour rules](pending/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests for ReportsHours and service year](pending/reports-hours-service-year-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests that seed reset is blocked in production](pending/seed-reset-production-guard-tests/idea.md) | 2 | 4 | 2.00 |
@@ -74,6 +73,7 @@ On `dev` / staging, not on `main`. Folders live in `uat/`. Same sort as pending.
 | [Copy dashboard totals to the clipboard](uat/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
 | [PRs target `dev`, not `main`](uat/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
 | [golangci-lint or go vet + gofmt in CI](uat/golangci-lint-ci/idea.md) | 2 | 4 | 2.00 |
+| [Login rate limit](uat/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
 | [Dokploy staging environment](uat/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 
 ## Implemented
