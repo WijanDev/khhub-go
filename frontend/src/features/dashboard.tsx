@@ -1,19 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { MonthNav } from "@/components/month-nav";
+import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { api, type Dashboard } from "@/lib/api";
+import { fmt, formatDashboardTotals } from "@/lib/dashboard-copy";
 import { monthTitle } from "@/lib/labels";
 
 function nowPeriod() {
   const d = new Date();
   return { year: d.getFullYear(), month: d.getMonth() + 1 };
-}
-
-function fmt(n: number | null | undefined, digits = 0) {
-  if (n == null) return "—";
-  return n.toLocaleString("es", { maximumFractionDigits: digits, minimumFractionDigits: digits });
 }
 
 export function DashboardPage() {
@@ -23,6 +20,23 @@ export function DashboardPage() {
     queryFn: () => api<Dashboard>(`/dashboard?year=${year}&month=${month}`),
   });
   const d = q.data;
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
+
+  useEffect(() => {
+    if (copyState !== "copied") return;
+    const id = window.setTimeout(() => setCopyState("idle"), 2000);
+    return () => window.clearTimeout(id);
+  }, [copyState]);
+
+  async function copyTotals() {
+    if (!d) return;
+    try {
+      await navigator.clipboard.writeText(formatDashboardTotals(d, year, month));
+      setCopyState("copied");
+    } catch {
+      setCopyState("error");
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -33,8 +47,16 @@ export function DashboardPage() {
             Totales para copiar a mano al informe de la sucursal. Año de servicio {d?.serviceYear ?? "—"}.
           </p>
         </div>
-        <MonthNav year={year} month={month} onChange={(y, m) => setPeriod({ year: y, month: m })} />
+        <div className="flex flex-wrap items-end gap-2">
+          <Button type="button" variant="outline" disabled={!d} onClick={() => void copyTotals()}>
+            {copyState === "copied" ? "Copiado" : "Copiar totales"}
+          </Button>
+          <MonthNav year={year} month={month} onChange={(y, m) => setPeriod({ year: y, month: m })} />
+        </div>
       </header>
+      {copyState === "error" ? (
+        <p className="text-sm text-destructive">No se pudo copiar. Copia los números a mano.</p>
+      ) : null}
 
       {q.isError ? <p className="text-destructive">{q.error.message}</p> : null}
 
