@@ -41,7 +41,7 @@ Makefile shortcuts: `make dev-db`, `make api`, `make web`, `make test`, `make li
 
 ## Git
 
-The default branch is **`dev`**. Open pull requests against `dev`. A push to `dev` publishes `staging` images to GHCR and deploys `staging.khhub.app`. Promote a release with a PR from `dev` to `main`; that retags those images as `latest` and deploys khhub.app.
+The default branch is **`dev`**. Open pull requests against `dev`. A push to `dev` publishes only the GHCR images whose source tree changed (`backend/` or `frontend/`, excluding tests) and deploys that side on `staging.khhub.app`. Promote a release with a PR from `dev` to `main`; that retags the matching `:staging` images as `:latest` and deploys only those apps on khhub.app. Docs, roadmap, and other non-image paths do not publish.
 
 ## Deploy
 

@@ -62,7 +62,9 @@ Sorted by ratio (highest first), then utility, then slug.
 
 Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 
-—
+| Idea | Cost | Utility | Ratio |
+| --- | --- | --- | --- |
+| [Path-aware GHCR publishes and split Dokploy apps](implementing/path-aware-ghcr-deploys/idea.md) | 3 | 3 | 1.00 |
 
 ## UAT
 

@@ -1,5 +1,6 @@
-# Full stack for Dokploy. API and web images are built in GitHub Actions
-# and pulled from GHCR. Postgres data stays on the VPS.
+# Optional full-stack reference (local prod-like). Dokploy does not run this
+# file: it deploys khhub-api and khhub-web as separate apps plus a Dokploy
+# Postgres per environment. Images come from GHCR.
 services:
   postgres:
     image: postgres:16-alpine

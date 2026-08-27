@@ -20,7 +20,7 @@ Do not commit congregation PII or real secrets. Seed data stays fictional.
 | Auth | httpOnly cookie `khhub_session`, SHA-256 token hash, bcrypt. **No JWT. No public signup.** |
 | Frontend | Vite SPA (no SSR), React 19, TanStack Router + Query + Table |
 | UI | Official shadcn **Base UI** (`base-nova`, `@base-ui/react`). **Not Radix.** Forms use NativeSelect. |
-| Deploy | Docker Compose on Hetzner + Dokploy. Dev servers stay on the host. |
+| Deploy | Dokploy apps `khhub-api` and `khhub-web` pull GHCR images. One Dokploy Postgres per environment. `docker-compose.yml` is an optional full-stack reference. Dev servers stay on the host. |
 
 When a vendored skill mentions GORM, sqlx, JWT, Next.js, TanStack Start, or Radix, **this repo wins**. Use sqlc + pgx, cookie sessions, Vite SPA (no SSR), Table **v8** (`useReactTable`), and Base UI.
 
@@ -67,7 +67,7 @@ cd backend && sqlc generate
 cd frontend && npm run lint && npm run build
 ```
 
-Do **not** dockerize the API or Vite for day-to-day development. `docker-compose.yml` is for production-like / Dokploy runs.
+Do **not** dockerize the API or Vite for day-to-day development. `docker-compose.yml` is an optional full-stack reference. Dokploy does not deploy it.
 
 ## Hard rules
 
@@ -120,7 +120,7 @@ Catalog and sources: [`.agents/README.md`](.agents/README.md).
 
 - Default integration branch is **`dev`**. Open feature PRs against `dev`.
 - Do **not** merge a feature branch into `main`.
-- `main` is production. Release by opening a PR **`dev` → `main`**. That is the only path that should publish GHCR images and trigger Dokploy.
+- `main` is production. Release by opening a PR **`dev` → `main`**. A push to `dev` publishes and deploys only the images whose source tree changed. A release to `main` retags those `:staging` digests as `:latest` and fires only the matching Dokploy hooks. Docs, roadmap, and tests do not publish.
 - Roadmap status **`uat`**: the idea is on `dev` (and staging when it is user-visible) but not yet on `main`. Folder: `docs/roadmap/uat/`.
 - Dependabot PRs target `dev`.
 

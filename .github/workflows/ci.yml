@@ -54,9 +54,56 @@ jobs:
           VITE_API_URL: https://api.khhub.app
         run: npm ci && npm run lint && npm run build
 
+  changes:
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    outputs:
+      api: ${{ steps.out.outputs.api }}
+      web: ${{ steps.out.outputs.web }}
+    steps:
+      - name: Detect first push on the branch
+        id: first
+        run: |
+          before="${{ github.event.before }}"
+          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            echo "both=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "both=false" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.first.outputs.both != 'true'
+        with:
+          fetch-depth: 2
+      - uses: dorny/paths-filter@v3
+        id: filter
+        if: steps.first.outputs.both != 'true'
+        with:
+          filters: |
+            api:
+              - 'backend/**'
+              - '!backend/**/*_test.go'
+              - '!backend/**/testdata/**'
+            web:
+              - 'frontend/**'
+              - '!frontend/**/*.test.ts'
+              - '!frontend/**/*.test.tsx'
+              - '!frontend/**/*.spec.ts'
+              - '!frontend/**/*.spec.tsx'
+              - '!frontend/**/__tests__/**'
+      - name: Set image outputs
+        id: out
+        run: |
+          if [ "${{ steps.first.outputs.both }}" = "true" ]; then
+            echo "api=true" >> "$GITHUB_OUTPUT"
+            echo "web=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "api=${{ steps.filter.outputs.api }}" >> "$GITHUB_OUTPUT"
+            echo "web=${{ steps.filter.outputs.web }}" >> "$GITHUB_OUTPUT"
+          fi
+
   images:
-    needs: [secrets, test]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    needs: [secrets, test, changes]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev' && (needs.changes.outputs.api == 'true' || needs.changes.outputs.web == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -67,6 +114,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/setup-buildx-action@v3
       - name: Build and push API
+        if: needs.changes.outputs.api == 'true'
         uses: docker/build-push-action@v6
         with:
           context: ./backend
@@ -77,6 +125,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Build and push web
+        if: needs.changes.outputs.web == 'true'
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
@@ -86,19 +135,30 @@ jobs:
             ghcr.io/wijandev/khhub-web:staging
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: Trigger Dokploy staging
+      - name: Trigger staging API
+        if: needs.changes.outputs.api == 'true'
         env:
-          HOOK: ${{ secrets.DOKPLOY_STAGING_DEPLOY_HOOK }}
+          HOOK: ${{ secrets.DOKPLOY_STAGING_API_HOOK }}
         run: |
           if [ -z "$HOOK" ]; then
-            echo "DOKPLOY_STAGING_DEPLOY_HOOK not set; skip staging trigger"
+            echo "DOKPLOY_STAGING_API_HOOK not set; skip staging API trigger"
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"
+      - name: Trigger staging web
+        if: needs.changes.outputs.web == 'true'
+        env:
+          HOOK: ${{ secrets.DOKPLOY_STAGING_WEB_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "DOKPLOY_STAGING_WEB_HOOK not set; skip staging web trigger"
             exit 0
           fi
           curl -fsS -X POST "$HOOK"
 
   promote:
-    needs: [secrets, test]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [secrets, test, changes]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (needs.changes.outputs.api == 'true' || needs.changes.outputs.web == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: docker/login-action@v3
@@ -107,20 +167,35 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/setup-buildx-action@v3
-      - name: Promote staging images to latest
+      - name: Promote staging API to latest
+        if: needs.changes.outputs.api == 'true'
         run: |
           docker buildx imagetools create \
             -t ghcr.io/wijandev/khhub-api:latest \
             ghcr.io/wijandev/khhub-api:staging
+      - name: Promote staging web to latest
+        if: needs.changes.outputs.web == 'true'
+        run: |
           docker buildx imagetools create \
             -t ghcr.io/wijandev/khhub-web:latest \
             ghcr.io/wijandev/khhub-web:staging
-      - name: Trigger Dokploy production
+      - name: Trigger production API
+        if: needs.changes.outputs.api == 'true'
         env:
-          HOOK: ${{ secrets.DOKPLOY_DEPLOY_HOOK }}
+          HOOK: ${{ secrets.DOKPLOY_PROD_API_HOOK }}
         run: |
           if [ -z "$HOOK" ]; then
-            echo "DOKPLOY_DEPLOY_HOOK not set; skip deploy trigger"
+            echo "DOKPLOY_PROD_API_HOOK not set; skip production API trigger"
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"
+      - name: Trigger production web
+        if: needs.changes.outputs.web == 'true'
+        env:
+          HOOK: ${{ secrets.DOKPLOY_PROD_WEB_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "DOKPLOY_PROD_WEB_HOOK not set; skip production web trigger"
             exit 0
           fi
           curl -fsS -X POST "$HOOK"
