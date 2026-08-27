@@ -74,7 +74,7 @@ Do **not** dockerize the API or Vite for day-to-day development. `docker-compose
 4. Hours are recorded only for regular/special pioneers or auxiliary pioneers that month (`domain.ReportsHours`).
 5. Service year is 1 September – 31 August (`domain.ServiceYear`).
 6. Activity status is derived (regular / irregular / inactive) over a 6-month window. Do not persist it as a source of truth.
-7. `POST /dev/reset-seed` exists only when `APP_ENV != production`.
+7. `POST /dev/reset-seed` exists only when `APP_ENV=development`. Staging (`APP_ENV=staging`) loads the fictional demo seed on an empty directory but does not expose the reset route.
 8. Card padding: official shadcn `Card` pads header/content, not arbitrary children. Put page body in `CardContent` or keep the existing root padding convention.
 9. Verify UI changes in the browser (or the closest substitute) before claiming done.
 10. Hetzner: before creating a billed resource, and after listing live servers, load `hetzner-deploy` and estimate cost from live CLI prices (`hcloud server-type describe`, load-balancer types, volumes). Report hourly + monthly EUR. This is catalog rate × resources, not the Hetzner invoice (traffic overage and snapshots can add more). Unexpected spend → `hcloud server delete` after confirming the name.

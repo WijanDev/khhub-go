@@ -41,7 +41,6 @@ Sorted by ratio (highest first), then utility, then slug.
 | [Accounts, publisher portal, multi-congregation](pending/accounts-multicongregation/idea.md) | 5 | 5 | 1.00 |
 | [Archive publishers](pending/archive-publishers/idea.md) | 4 | 4 | 1.00 |
 | [Congregation meeting calendar and attendance uniqueness](pending/attendance-duplicate-guard/idea.md) | 4 | 4 | 1.00 |
-| [Dokploy staging environment](pending/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 | [Field service groups](pending/field-service-groups/idea.md) | 4 | 4 | 1.00 |
 | [Keyboard and screen-reader pass](pending/a11y-pass/idea.md) | 3 | 3 | 1.00 |
 | [Consistent JSON error shape](pending/consistent-json-errors/idea.md) | 3 | 3 | 1.00 |
@@ -69,6 +68,7 @@ Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 | --- | --- | --- | --- |
 | [Copy dashboard totals to the clipboard](implementing/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
 | [PRs target `dev`, not `main`](implementing/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
+| [Dokploy staging environment](implementing/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 
 ## Implemented
 

@@ -6,6 +6,8 @@ Images are built on GitHub Actions and stored in GHCR. The VPS pulls; it does no
 
 - SPA: `https://khhub.app`
 - API: `https://api.khhub.app`
+- Staging SPA: `https://staging.khhub.app`
+- Staging API: `https://apistaging.khhub.app`
 - Dokploy panel: `https://admin.wijan.dev` (personal; not a khhub hostname)
 
 ## Images
@@ -13,37 +15,51 @@ Images are built on GitHub Actions and stored in GHCR. The VPS pulls; it does no
 | Image | Source |
 | --- | --- |
 | `ghcr.io/wijandev/khhub-api` | `backend/` |
-| `ghcr.io/wijandev/khhub-web` | `frontend/` (static files; `VITE_API_URL` baked at build) |
+| `ghcr.io/wijandev/khhub-web` | `frontend/` (static files; API origin from `KHHUB_API_URL` at container start) |
 | `postgres:16-alpine` | official |
 
-Tags: git SHA and `latest`. After the first push, set both GHCR packages to **public** if GitHub created them as private.
+Tags: git SHA and `staging` on every push to `dev`; a merge to `main` retags those `staging` digests as `latest` (no rebuild). After the first push, set both GHCR packages to **public** if GitHub created them as private.
 
 ## Dokploy
 
-1. Compose project pointed at [WijanDev/khhub-go](https://github.com/WijanDev/khhub-go) `main` (this repo’s `docker-compose.yml`).
-2. Environment variables (never commit them):
+1. Two compose environments in project `khhub`, same git source (`WijanDev/khhub-go`, `docker-compose.yml`). **Do not clone production volumes** into staging. Dokploy prefixes the `khhub_pg` volume with the compose project name; a new environment gets an empty disk.
+
+   | Environment | Image tags | `KHHUB_API_URL` | `CORS_ORIGINS` | `APP_ENV` |
+   | --- | --- | --- | --- | --- |
+   | `production` | `…-api:latest` and `…-web:latest` (defaults) | `https://api.khhub.app` | `https://khhub.app` | `production` |
+   | `staging` | `KHHUB_API_IMAGE=ghcr.io/wijandev/khhub-api:staging` and `KHHUB_WEB_IMAGE=ghcr.io/wijandev/khhub-web:staging` | `https://apistaging.khhub.app` | `https://staging.khhub.app` | `staging` |
+
+   `APP_ENV=staging` loads the fictional demo seed on an empty directory and does **not** register `POST /dev/reset-seed`.
+2. Environment variables (never commit them). Each environment has its own `POSTGRES_*`, `SESSION_SECRET`, and `ADMIN_*`:
 
    - `POSTGRES_USER` (for example `khhub`)
    - `POSTGRES_PASSWORD` — long and random
    - `POSTGRES_DB` (`khhub`)
    - `SESSION_SECRET` — 32+ random characters
    - `ADMIN_EMAIL`
-   - `ADMIN_PASSWORD` — at least 10 characters in production
-   - `APP_ENV=production`
+   - `ADMIN_PASSWORD` — at least 10 characters in production and staging
+   - `APP_ENV` — `production` or `staging` (never `development` on a public hostname)
    - `COOKIE_SECURE=true`
-   - `CORS_ORIGINS=https://khhub.app`
+   - `CORS_ORIGINS` — see table
+   - `KHHUB_API_URL` — see table
+   - Staging only: `KHHUB_API_IMAGE` and `KHHUB_WEB_IMAGE` as above
 
 3. Domains (HTTPS, Let’s Encrypt), DNS-only A records to the VPS IPv4 first:
 
-   - `khhub.app` → `web` port 80
-   - `api.khhub.app` → `api` port 8080
+   - `khhub.app` → production `web` port 80
+   - `api.khhub.app` → production `api` port 8080
+   - `staging.khhub.app` → staging `web` port 80
+   - `apistaging.khhub.app` → staging `api` port 8080
 
-4. GitHub Actions secret `DOKPLOY_DEPLOY_HOOK` = the compose webhook URL from **https://admin.wijan.dev** → khhub compose → Deployments. Copy it there (do not commit it). A merge to `main` (release PR from `dev`) then deploys.
+4. GitHub Actions secrets (do not commit them):
+
+   - `DOKPLOY_STAGING_DEPLOY_HOOK` — staging compose webhook. Push to `dev` builds `:sha` + `:staging` and fires this hook.
+   - `DOKPLOY_DEPLOY_HOOK` — production compose webhook. A release PR `dev` → `main` retags `:staging` → `:latest` and fires this hook. No rebuild on `main`.
 5. Postgres dumps go to the Cloudflare R2 bucket `khhub-backups` (EU). Add an S3 destination in Dokploy and a **weekly Sunday midnight** compose backup of service `postgres`, database `khhub`. This database stores congregation personal data.
 6. Firewall: 22/80/443 only. Do not expose 5432 or 8080.
 7. After the first login, change the admin password under **Congregación**.
 
-Check `GET https://api.khhub.app/health` → `{"ok":true}`.
+Check `GET https://api.khhub.app/health` → `{"ok":true}`. Staging: `GET https://apistaging.khhub.app/health` after the compose exists. A release to `main` only works after `dev` has published `:staging` tags at least once.
 
 ## Backups (R2)
 

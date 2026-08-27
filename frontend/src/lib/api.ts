@@ -6,8 +6,13 @@ export class ApiError extends Error {
   }
 }
 
+function apiBase(): string {
+  const runtime = typeof window !== "undefined" ? window.__KHHUB_API_URL__ : "";
+  return (runtime || import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+}
+
 function apiURL(path: string): string {
-  const base = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
+  const base = apiBase();
   if (!path.startsWith("/")) {
     throw new Error("api() path must start with /");
   }

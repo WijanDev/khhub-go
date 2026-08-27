@@ -39,14 +39,29 @@ func Load() (Config, error) {
 	if cfg.AdminPassword == "" {
 		return cfg, fmt.Errorf("ADMIN_PASSWORD is required")
 	}
-	if len(cfg.AdminPassword) < 10 && cfg.AppEnv == "production" {
-		return cfg, fmt.Errorf("ADMIN_PASSWORD must be at least 10 characters in production")
+	if len(cfg.AdminPassword) < 10 && cfg.StrictSecrets() {
+		return cfg, fmt.Errorf("ADMIN_PASSWORD must be at least 10 characters in production and staging")
 	}
 	return cfg, nil
 }
 
 func (c Config) Production() bool {
 	return c.AppEnv == "production"
+}
+
+// StrictSecrets is production or staging (public hosts).
+func (c Config) StrictSecrets() bool {
+	return c.AppEnv == "production" || c.AppEnv == "staging"
+}
+
+// AllowsSeedReset is only local development. Never enable /dev/reset-seed on a public hostname.
+func (c Config) AllowsSeedReset() bool {
+	return c.AppEnv == "development"
+}
+
+// AutoDemoSeed loads fictional publishers when the directory is empty (local + staging).
+func (c Config) AutoDemoSeed() bool {
+	return c.AppEnv == "development" || c.AppEnv == "staging"
 }
 
 func loadDotEnv() {

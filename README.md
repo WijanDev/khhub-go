@@ -39,7 +39,7 @@ Makefile shortcuts: `make dev-db`, `make api`, `make web`, `make test`.
 
 ## Git
 
-The default branch is **`dev`**. Open pull requests against `dev`. Promote a release with a PR from `dev` to `main`. Pushing `main` builds GHCR images and deploys khhub.app.
+The default branch is **`dev`**. Open pull requests against `dev`. A push to `dev` publishes `staging` images to GHCR and deploys `staging.khhub.app`. Promote a release with a PR from `dev` to `main`; that retags those images as `latest` and deploys khhub.app.
 
 ## Deploy
 

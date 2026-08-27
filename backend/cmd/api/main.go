@@ -44,10 +44,12 @@ func main() {
 	}
 
 	var resetSeed func(context.Context) error
-	if !cfg.Production() {
+	if cfg.AllowsSeedReset() {
 		resetSeed = func(c context.Context) error {
 			return seed.Reset(c, pool, q)
 		}
+	}
+	if cfg.AutoDemoSeed() {
 		n, err := q.CountPublishers(ctx)
 		if err != nil {
 			log.Fatalf("count publishers: %v", err)

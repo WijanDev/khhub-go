@@ -41,11 +41,16 @@ services:
   web:
     image: ${KHHUB_WEB_IMAGE:-ghcr.io/wijandev/khhub-web:latest}
     restart: unless-stopped
+    environment:
+      # Runtime origin written into /public/config.js. Staging: https://apistaging.khhub.app
+      KHHUB_API_URL: ${KHHUB_API_URL:-https://api.khhub.app}
     expose:
       - "80"
     networks:
       - khhub
 
+# Dokploy prefixes this with the compose project name. Staging must be a
+# separate environment so it does not reuse the production volume.
 volumes:
   khhub_pg:
 
