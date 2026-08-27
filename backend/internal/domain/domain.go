@@ -9,9 +9,9 @@ const (
 	GenderMale   = "male"
 	GenderFemale = "female"
 
-	SpiritualStudent              = "student"
-	SpiritualUnbaptizedPublisher  = "unbaptized_publisher"
-	SpiritualPublisher            = "publisher"
+	SpiritualStudent             = "student"
+	SpiritualUnbaptizedPublisher = "unbaptized_publisher"
+	SpiritualPublisher           = "publisher"
 
 	ActivityRegular   = "regular"
 	ActivityIrregular = "irregular"

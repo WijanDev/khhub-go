@@ -1,7 +1,7 @@
 # PRs target `dev`, not `main`
 
 - **Slug:** dev-branch-workflow
-- **Status:** in-progress
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 

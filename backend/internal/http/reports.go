@@ -15,13 +15,13 @@ import (
 )
 
 type reportUpsert struct {
-	PublisherID       uuid.UUID `json:"publisherId" binding:"required"`
-	SharedInMinistry  bool      `json:"sharedInMinistry"`
-	BibleStudies      int32     `json:"bibleStudies" binding:"min=0"`
-	Hours             *float64  `json:"hours"`
-	AuxiliaryPioneer  bool      `json:"auxiliaryPioneer"`
-	Late              bool      `json:"late"`
-	Remarks           string    `json:"remarks" binding:"max=500"`
+	PublisherID      uuid.UUID `json:"publisherId" binding:"required"`
+	SharedInMinistry bool      `json:"sharedInMinistry"`
+	BibleStudies     int32     `json:"bibleStudies" binding:"min=0"`
+	Hours            *float64  `json:"hours"`
+	AuxiliaryPioneer bool      `json:"auxiliaryPioneer"`
+	Late             bool      `json:"late"`
+	Remarks          string    `json:"remarks" binding:"max=500"`
 }
 
 type reportsBatchRequest struct {
@@ -65,21 +65,21 @@ func listReports(q *store.Queries) gin.HandlerFunc {
 			hasReport := r.ID != nil
 			hourReporter := r.IsRegularPioneer || r.IsSpecialPioneer || (r.AuxiliaryPioneer != nil && *r.AuxiliaryPioneer)
 			item := gin.H{
-				"publisherId":        r.PublisherID,
-				"firstName":          r.FirstName,
-				"lastName":           r.LastName,
-				"spiritualStatus":    r.SpiritualStatus,
-				"isRegularPioneer":   r.IsRegularPioneer,
-				"isSpecialPioneer":   r.IsSpecialPioneer,
-				"hourReporter":       hourReporter,
-				"hasReport":          hasReport,
-				"id":                 r.ID,
-				"sharedInMinistry":   boolOr(r.SharedInMinistry),
-				"bibleStudies":       intOr(r.BibleStudies),
-				"hours":              r.Hours,
-				"auxiliaryPioneer":   boolOr(r.AuxiliaryPioneer),
-				"late":               boolOr(r.Late),
-				"remarks":            stringOr(r.Remarks),
+				"publisherId":      r.PublisherID,
+				"firstName":        r.FirstName,
+				"lastName":         r.LastName,
+				"spiritualStatus":  r.SpiritualStatus,
+				"isRegularPioneer": r.IsRegularPioneer,
+				"isSpecialPioneer": r.IsSpecialPioneer,
+				"hourReporter":     hourReporter,
+				"hasReport":        hasReport,
+				"id":               r.ID,
+				"sharedInMinistry": boolOr(r.SharedInMinistry),
+				"bibleStudies":     intOr(r.BibleStudies),
+				"hours":            r.Hours,
+				"auxiliaryPioneer": boolOr(r.AuxiliaryPioneer),
+				"late":             boolOr(r.Late),
+				"remarks":          stringOr(r.Remarks),
 			}
 			out = append(out, item)
 			if !hasReport {

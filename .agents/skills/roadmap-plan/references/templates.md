@@ -9,6 +9,7 @@ Replace `SLUG`, scores, and copy. Keep English.
 
 - **Slug:** SLUG
 - **Status:** proposed
+  (`proposed` · `planned` · `in-progress` · `uat` · `implemented` · `dropped`)
 - **Merge date:** (empty until implemented)
 - **App version:** (empty until implemented)
 

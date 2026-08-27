@@ -2,7 +2,7 @@
 
 khhub is **not official Jehovah’s Witnesses software**. It does not talk to jw.org and does not replace S-21 cards or JW Hub. Dashboard totals are copied to the branch by hand.
 
-Living work lives in this folder only. Agents follow `.agents/skills/roadmap-plan`. Idea folders sit in `pending/`, `implementing/`, or `implemented/` (move the folder when status changes). Dropped ideas sit in `dropped/`.
+Living work lives in this folder only. Agents follow `.agents/skills/roadmap-plan`. Idea folders sit in `pending/`, `implementing/`, `uat/`, or `implemented/` (move the folder when status changes). Dropped ideas sit in `dropped/`. **UAT** means the work is on `dev` (and staging when it is user-visible) but not yet released to `main`.
 
 **Scores:** cost 1 = cheap … 5 = expensive. Utility 1 = low … 5 = high. **Ratio** = utility ÷ cost.
 
@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [golangci-lint or go vet + gofmt in CI](pending/golangci-lint-ci/idea.md) | 2 | 4 | 2.00 |
 | [Login rate limit](pending/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
 | [Handler tests for report hour rules](pending/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests for ReportsHours and service year](pending/reports-hours-service-year-tests/idea.md) | 2 | 4 | 2.00 |
@@ -64,11 +63,18 @@ Sorted by ratio (highest first), then utility, then slug.
 
 Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 
+—
+
+## UAT
+
+On `dev` / staging, not on `main`. Folders live in `uat/`. Same sort as pending.
+
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Copy dashboard totals to the clipboard](implementing/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
-| [PRs target `dev`, not `main`](implementing/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
-| [Dokploy staging environment](implementing/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
+| [Copy dashboard totals to the clipboard](uat/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
+| [PRs target `dev`, not `main`](uat/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
+| [golangci-lint or go vet + gofmt in CI](uat/golangci-lint-ci/idea.md) | 2 | 4 | 2.00 |
+| [Dokploy staging environment](uat/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 
 ## Implemented
 

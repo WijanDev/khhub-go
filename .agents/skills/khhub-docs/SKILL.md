@@ -18,7 +18,7 @@ Load `developer-docs-planning` / `developer-docs-drafting` when scoping new page
 | --- | --- |
 | Humans, quick start | `README.md` |
 | Agents, always-on rules | `AGENTS.md` |
-| Living roadmap | `docs/roadmap/summary.md` |
+| Living roadmap | `docs/roadmap/summary.md` (`pending/` · `implementing/` · `uat/` · `implemented/`) |
 | Production deploy | `docs/deploy-dokploy.md` |
 | Feature implementation plans | `docs/plans/YYYY-MM-DD-<feature>.md` |
 | Skill catalog | `.agents/README.md` |

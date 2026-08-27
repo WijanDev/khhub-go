@@ -31,7 +31,9 @@ Copy `.env.example` so Vite has `VITE_API_URL=http://127.0.0.1:8080`. Open http:
 
 API reload: `go install github.com/air-verse/air@latest` and run `air` inside `backend/`.
 
-Makefile shortcuts: `make dev-db`, `make api`, `make web`, `make test`.
+Makefile shortcuts: `make dev-db`, `make api`, `make web`, `make test`, `make lint`.
+
+`make lint` runs `gofmt -l` and `go vet` in `backend/`. CI runs the same checks.
 
 ## Service year
 

@@ -57,6 +57,9 @@ make web
 make test
 # or: cd backend && go test ./...
 
+# Go format and vet (same checks as CI)
+make lint
+
 # After changing SQL
 cd backend && sqlc generate
 
@@ -118,6 +121,7 @@ Catalog and sources: [`.agents/README.md`](.agents/README.md).
 - Default integration branch is **`dev`**. Open feature PRs against `dev`.
 - Do **not** merge a feature branch into `main`.
 - `main` is production. Release by opening a PR **`dev` → `main`**. That is the only path that should publish GHCR images and trigger Dokploy.
+- Roadmap status **`uat`**: the idea is on `dev` (and staging when it is user-visible) but not yet on `main`. Folder: `docs/roadmap/uat/`.
 - Dependabot PRs target `dev`.
 
 ## Security

@@ -1,7 +1,7 @@
 # Dokploy staging environment
 
 - **Slug:** dokploy-staging-environment
-- **Status:** in-progress
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 

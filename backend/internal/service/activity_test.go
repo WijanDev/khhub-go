@@ -28,12 +28,12 @@ func TestActivityStatus(t *testing.T) {
 	asOf := domain.Month{Year: 2026, Month: time.March}
 	// window: Oct 2025 .. Mar 2026
 	allShared := []domain.MonthShare{
-		{2025, time.October, true},
-		{2025, time.November, true},
-		{2025, time.December, true},
-		{2026, time.January, true},
-		{2026, time.February, true},
-		{2026, time.March, true},
+		{Year: 2025, Month: time.October, Shared: true},
+		{Year: 2025, Month: time.November, Shared: true},
+		{Year: 2025, Month: time.December, Shared: true},
+		{Year: 2026, Month: time.January, Shared: true},
+		{Year: 2026, Month: time.February, Shared: true},
+		{Year: 2026, Month: time.March, Shared: true},
 	}
 	if got := ActivityStatus(allShared, nil, asOf); got != domain.ActivityRegular {
 		t.Fatalf("all shared: got %s", got)
@@ -51,9 +51,9 @@ func TestActivityStatus(t *testing.T) {
 
 	started := time.Date(2026, time.January, 10, 0, 0, 0, 0, time.UTC)
 	newPub := []domain.MonthShare{
-		{2026, time.January, true},
-		{2026, time.February, true},
-		{2026, time.March, true},
+		{Year: 2026, Month: time.January, Shared: true},
+		{Year: 2026, Month: time.February, Shared: true},
+		{Year: 2026, Month: time.March, Shared: true},
 	}
 	if got := ActivityStatus(newPub, &started, asOf); got != domain.ActivityRegular {
 		t.Fatalf("new publisher: got %s", got)

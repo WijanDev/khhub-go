@@ -12,19 +12,19 @@ import (
 )
 
 type publisherRequest struct {
-	HouseholdID           *uuid.UUID `json:"householdId"`
-	FirstName             string     `json:"firstName" binding:"required,max=100"`
-	LastName              string     `json:"lastName" binding:"required,max=100"`
-	Gender                string     `json:"gender" binding:"required,oneof=male female"`
-	Phone                 string     `json:"phone" binding:"max=50"`
-	Email                 string     `json:"email" binding:"omitempty,email,max=200"`
-	BaptismDate           *string    `json:"baptismDate"`
-	StartedPreachingDate  *string    `json:"startedPreachingDate"`
-	SpiritualStatus       string     `json:"spiritualStatus" binding:"required,oneof=student unbaptized_publisher publisher"`
-	IsElder               bool       `json:"isElder"`
-	IsMinisterialServant  bool       `json:"isMinisterialServant"`
-	IsRegularPioneer      bool       `json:"isRegularPioneer"`
-	IsSpecialPioneer      bool       `json:"isSpecialPioneer"`
+	HouseholdID          *uuid.UUID `json:"householdId"`
+	FirstName            string     `json:"firstName" binding:"required,max=100"`
+	LastName             string     `json:"lastName" binding:"required,max=100"`
+	Gender               string     `json:"gender" binding:"required,oneof=male female"`
+	Phone                string     `json:"phone" binding:"max=50"`
+	Email                string     `json:"email" binding:"omitempty,email,max=200"`
+	BaptismDate          *string    `json:"baptismDate"`
+	StartedPreachingDate *string    `json:"startedPreachingDate"`
+	SpiritualStatus      string     `json:"spiritualStatus" binding:"required,oneof=student unbaptized_publisher publisher"`
+	IsElder              bool       `json:"isElder"`
+	IsMinisterialServant bool       `json:"isMinisterialServant"`
+	IsRegularPioneer     bool       `json:"isRegularPioneer"`
+	IsSpecialPioneer     bool       `json:"isSpecialPioneer"`
 }
 
 func parseDatePtr(s *string) (*time.Time, error) {

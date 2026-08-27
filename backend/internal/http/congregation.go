@@ -18,12 +18,12 @@ type congregationRequest struct {
 
 func congregationJSON(row store.Congregation, seedResetEnabled bool) gin.H {
 	return gin.H{
-		"name":              row.Name,
-		"number":            row.Number,
-		"midweekDay":        row.MidweekDay,
-		"weekendDay":        row.WeekendDay,
-		"updatedAt":         row.UpdatedAt,
-		"seedResetEnabled":  seedResetEnabled,
+		"name":             row.Name,
+		"number":           row.Number,
+		"midweekDay":       row.MidweekDay,
+		"weekendDay":       row.WeekendDay,
+		"updatedAt":        row.UpdatedAt,
+		"seedResetEnabled": seedResetEnabled,
 	}
 }
 

@@ -1,7 +1,7 @@
 # golangci-lint or go vet + gofmt in CI
 
 - **Slug:** golangci-lint-ci
-- **Status:** proposed
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 

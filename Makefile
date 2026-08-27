@@ -1,4 +1,4 @@
-.PHONY: dev-db api web test
+.PHONY: dev-db api web test lint
 
 dev-db:
 	docker compose -f docker-compose.dev.yml --env-file .env up -d
@@ -11,3 +11,6 @@ web:
 
 test:
 	cd backend && go test ./internal/service/...
+
+lint:
+	cd backend && test -z "$$(gofmt -l .)" && go vet ./...

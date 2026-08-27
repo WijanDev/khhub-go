@@ -1,6 +1,6 @@
 ---
 name: roadmap-plan
-description: Capture and rank khhub ideas under docs/roadmap. Use after brainstorming approves a design, when adding or scoring an idea, when marking an idea implemented, or when the user mentions the roadmap.
+description: Capture and rank khhub ideas under docs/roadmap. Use after brainstorming approves a design, when adding or scoring an idea, when marking an idea in-progress / UAT / implemented, or when the user mentions the roadmap.
 ---
 
 # Roadmap plan
@@ -18,13 +18,14 @@ docs/roadmap/
   summary.md
   pending/<slug>/
   implementing/<slug>/
+  uat/<slug>/
   implemented/<slug>/
   dropped/<slug>/
 ```
 
 Each idea folder still has `idea.md`, `implementation-plan.md`, `cost-analysis.md`, `utility-analysis.md`.
 
-`summary.md` is the index. Every pending, implementing, or implemented row must have a matching folder. Never list an idea that has no folder.
+`summary.md` is the index. Every pending, implementing, UAT, or implemented row must have a matching folder. Never list an idea that has no folder.
 
 Create new work under `pending/<slug>/`. **Move** the folder when status changes:
 
@@ -32,6 +33,7 @@ Create new work under `pending/<slug>/`. **Move** the folder when status changes
 | --- | --- |
 | `proposed` or `planned` | `pending/<slug>/` |
 | `in-progress` | `implementing/<slug>/` |
+| `uat` | `uat/<slug>/` |
 | `implemented` | `implemented/<slug>/` |
 | `dropped` | `dropped/<slug>/` |
 
@@ -72,6 +74,16 @@ When the human asks to build the idea:
 2. Move `docs/roadmap/pending/<slug>/` to `docs/roadmap/implementing/<slug>/`.
 3. Rebuild `summary.md`.
 
+## Mark UAT
+
+When the work is on `dev` (and on staging when the change is user-visible) but **not** yet on `main`:
+
+1. Set `idea.md` status to `uat`.
+2. Move `docs/roadmap/implementing/<slug>/` (or `pending/<slug>/` if it never sat in implementing) to `docs/roadmap/uat/<slug>/`.
+3. Rebuild `summary.md`.
+
+Do not mark `implemented` from UAT. Release is still a PR `dev` → `main`.
+
 ## Mark implemented
 
 Only after the work is merged to `main` (release PR from `dev`) and deployed:
@@ -79,16 +91,18 @@ Only after the work is merged to `main` (release PR from `dev`) and deployed:
 1. Set `idea.md` status to `implemented`.
 2. Record **merge date** (`YYYY-MM-DD` of the merge commit on `main`).
 3. Record **app version** from the repo root `VERSION` file at that deploy (create `VERSION` on the first tagged release if it is missing; do not invent a version).
-4. Move `docs/roadmap/implementing/<slug>/` (or `pending/<slug>/` if it never moved) to `docs/roadmap/implemented/<slug>/`.
+4. Move `docs/roadmap/uat/<slug>/` (or `implementing/<slug>/` / `pending/<slug>/` if it skipped a stage) to `docs/roadmap/implemented/<slug>/`.
 5. Rebuild `summary.md`.
 
 ## Rebuild `summary.md`
 
-Three lists. No fourth “unscored” section.
+Four lists. No “unscored” section.
 
 **Pending** — `proposed` or `planned`. Sort by ratio descending, then utility descending, then slug. Columns: idea (link to `pending/<slug>/idea.md`), cost, utility, ratio.
 
 **Implementing** — `in-progress`. Same sort and columns; links use `implementing/`.
+
+**UAT** — `uat`. On `dev` / staging, not on `main`. Same sort and columns; links use `uat/`.
 
 **Implemented** — `implemented`. Sort by **merge date, newest first**. Columns: idea (link to `implemented/<slug>/idea.md`), cost, utility, merge date, version.
 
@@ -96,7 +110,7 @@ Keep the non-official product disclaimer at the top. Repeat out-of-scope constra
 
 ## Status values (`idea.md`)
 
-`proposed` · `planned` · `in-progress` · `implemented` · `dropped`
+`proposed` · `planned` · `in-progress` · `uat` · `implemented` · `dropped`
 
 `dropped` stays on disk under `dropped/` and is omitted from the `summary.md` tables.
 

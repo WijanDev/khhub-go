@@ -23,7 +23,7 @@ These are the first-pass gates. Change them here if they are too strict or too w
 | Duplicated lines on **new** code | ≤ 3% |
 | Overall project coverage | Deferred. No fail-the-repo gate on day one. Configure a global % later. |
 
-golangci-lint stays the separate idea `golangci-lint-ci`; when it exists, it is also required.
+`gofmt` + `go vet` (`golangci-lint-ci`) is a separate CI check; keep it required when that idea is on `dev` or `main`.
 
 ## Out of scope
 
