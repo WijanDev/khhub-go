@@ -1,0 +1,15 @@
+# Secret scan for khhub. CI runs gitleaks with this file.
+# Placeholders and fictional seed copy are allowlisted after review.
+# Do not allowlist real congregation PII or live credentials.
+
+title = "khhub"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Example env placeholders and vendored Dokploy skill docs (not live keys)"
+paths = [
+  '''(^|/)\.env\.example$''',
+  '''\.agents/skills/dokploy-deploy/''',
+]

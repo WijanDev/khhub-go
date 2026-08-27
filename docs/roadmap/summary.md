@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Secret scan in CI](pending/secret-scan-ci/idea.md) | 2 | 5 | 2.50 |
 | [Prevent duplicate attendance rows](pending/attendance-duplicate-guard/idea.md) | 2 | 4 | 2.00 |
 | [Copy dashboard totals to the clipboard](pending/dashboard-copy-totals/idea.md) | 2 | 4 | 2.00 |
 | [PRs target `dev`, not `main`](pending/dev-branch-workflow/idea.md) | 2 | 4 | 2.00 |
@@ -79,5 +78,6 @@ Sorted by merge date, newest first. Each row needs the merge date on `main` and 
 
 | Idea | Cost | Utility | Merged | Version |
 | --- | --- | --- | --- | --- |
+| [Secret scan in CI](implemented/secret-scan-ci/idea.md) | 2 | 5 | 2026-08-27 | 0.1.0 |
 | [httptest coverage for auth](implemented/auth-handler-tests/idea.md) | 2 | 5 | 2026-08-27 | 0.1.0 |
 | [Dependabot for Go and npm](implemented/dependabot/idea.md) | 1 | 3 | 2026-08-27 | 0.1.0 |
