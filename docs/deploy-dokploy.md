@@ -33,7 +33,7 @@ Create one **Dokploy Postgres** per environment. Point `khhub-api` at it with `D
 
 `docker-compose.yml` in this repo is an optional full-stack reference for a local prod-like run. Dokploy does not deploy it.
 
-1. Environments and apps as in the table. `APP_ENV=staging` loads the fictional demo seed on an empty directory and does **not** register `POST /dev/reset-seed`.
+1. Environments and apps as in the table. `APP_ENV=staging` loads the fictional demo seed on an empty directory and registers `POST /dev/reset-seed` (authenticated) so testers can restore that demo. Production never registers the route.
 
    | Environment | `KHHUB_API_URL` | `CORS_ORIGINS` | `APP_ENV` |
    | --- | --- | --- | --- |

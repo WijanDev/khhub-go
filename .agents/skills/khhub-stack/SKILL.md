@@ -14,7 +14,7 @@ Read `AGENTS.md` first. This skill wins over vendored Gin/React skills.
 - Auth is an httpOnly cookie (`khhub_session`), not JWT. Protect routes with `requireAuth()`. Login is rate-limited. No public registration.
 - Validate with go-playground/validator where the handler already does; return JSON errors, not HTML.
 - Hours: `domain.ReportsHours`. Service year: `domain.ServiceYear`. Activity: `service.ActivityStatus` (derived, 6 months).
-- Demo seed (`internal/seed`) is fictional and development-only.
+- Demo seed (`internal/seed`) is fictional. `POST /dev/reset-seed` is allowlisted for `development` and `staging` only; production never registers it.
 
 ## Frontend
 

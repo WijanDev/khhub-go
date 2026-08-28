@@ -15,6 +15,7 @@ import (
 func NewRouter(cfg config.Config, q *store.Queries, resetSeed func(ctx context.Context) error) http.Handler {
 	if cfg.Production() {
 		gin.SetMode(gin.ReleaseMode)
+		resetSeed = nil
 	}
 	r := gin.New()
 	// Traefik sits on the Docker network; trust private hops so ClientIP is the browser.
