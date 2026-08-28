@@ -97,6 +97,7 @@ Load a skill when the task matches. Do not load all of them.
 | TanStack Router | `tanstack-router`, `tanstack-router-best-practices`, then official `router-core` via Intent (below) |
 | TanStack Query | `tanstack-query`, `tanstack-query-best-practices` |
 | TanStack Table (v8) | `tanstack-table` |
+| New machine / missing CLIs | `install-repo` |
 | Hetzner Cloud / `hcloud` | `hetzner-deploy` |
 | Dokploy deploy | `dokploy-deploy` |
 | Bug | `systematic-debugging` |

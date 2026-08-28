@@ -14,6 +14,8 @@ Dashboard totals are copied to the branch by hand.
 
 ## Local setup
 
+On a new machine, load the `install-repo` skill or run `bash scripts/check-dev-tools.sh`.
+
 ```bash
 cp .env.example .env
 # set ADMIN_PASSWORD (and ADMIN_EMAIL if you want)
