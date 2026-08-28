@@ -19,6 +19,7 @@ Sorted by ratio (highest first), then utility, then slug.
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
 | [LICENSE for the public repo](pending/license-file/idea.md) | 1 | 2 | 2.00 |
+| [Pin Node 24 LTS and npm 11.11+](pending/node-24-lts/idea.md) | 1 | 2 | 2.00 |
 | [docs/architecture.md](pending/architecture-doc/idea.md) | 2 | 3 | 1.50 |
 | [Change admin email](pending/change-admin-email/idea.md) | 2 | 3 | 1.50 |
 | [CONTRIBUTING.md](pending/contributing-md/idea.md) | 2 | 3 | 1.50 |
