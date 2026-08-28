@@ -21,7 +21,7 @@ Build images once on `dev` (immutable SHA tags) and deploy that pair to staging.
 ## Out of scope
 
 - A second Dokploy install or a second VPS
-- `APP_ENV=development` or `POST /dev/reset-seed` on a public hostname
+- `APP_ENV=development` on a public hostname (staging uses `APP_ENV=staging`; seed reset is allowlisted there, not via `development`)
 - Sharing the production `khhub_pg` volume
 - Preview deploys for every pull request
 - Real congregation PII in the staging database (fictional seed only)

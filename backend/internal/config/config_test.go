@@ -12,7 +12,7 @@ func TestEnvFlags(t *testing.T) {
 		strict     bool
 	}{
 		{env: "development", reset: true, demo: true},
-		{env: "staging", demo: true, strict: true},
+		{env: "staging", reset: true, demo: true, strict: true},
 		{env: "production", production: true, strict: true},
 	}
 	for _, tc := range cases {
@@ -28,6 +28,16 @@ func TestEnvFlags(t *testing.T) {
 		}
 		if c.StrictSecrets() != tc.strict {
 			t.Fatalf("%s StrictSecrets: got %v", tc.env, c.StrictSecrets())
+		}
+	}
+}
+
+func TestAllowsSeedResetRejectsUnknownEnv(t *testing.T) {
+	t.Parallel()
+	for _, env := range []string{"", "prod", "Production", "dev", "local"} {
+		c := Config{AppEnv: env}
+		if c.AllowsSeedReset() {
+			t.Fatalf("%q must not allow seed reset", env)
 		}
 	}
 }

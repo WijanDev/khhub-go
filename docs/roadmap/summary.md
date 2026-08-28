@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Tests that seed reset is blocked in production](pending/seed-reset-production-guard-tests/idea.md) | 2 | 4 | 2.00 |
 | [Drop leftover Vite starter assets](pending/drop-vite-starter-assets/idea.md) | 1 | 2 | 2.00 |
 | [LICENSE for the public repo](pending/license-file/idea.md) | 1 | 2 | 2.00 |
 | [docs/architecture.md](pending/architecture-doc/idea.md) | 2 | 3 | 1.50 |
@@ -62,7 +61,9 @@ Sorted by ratio (highest first), then utility, then slug.
 
 Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 
-—
+| Idea | Cost | Utility | Ratio |
+| --- | --- | --- | --- |
+| [Tests that seed reset is blocked in production](implementing/seed-reset-production-guard-tests/idea.md) | 2 | 4 | 2.00 |
 
 ## UAT
 

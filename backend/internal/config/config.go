@@ -54,9 +54,10 @@ func (c Config) StrictSecrets() bool {
 	return c.AppEnv == "production" || c.AppEnv == "staging"
 }
 
-// AllowsSeedReset is only local development. Never enable /dev/reset-seed on a public hostname.
+// AllowsSeedReset is an explicit allowlist: local development and staging.
+// Never treat this as “not production” — a typo in APP_ENV must not enable reset on khhub.app.
 func (c Config) AllowsSeedReset() bool {
-	return c.AppEnv == "development"
+	return c.AppEnv == "development" || c.AppEnv == "staging"
 }
 
 // AutoDemoSeed loads fictional publishers when the directory is empty (local + staging).

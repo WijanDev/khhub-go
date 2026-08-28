@@ -2,7 +2,7 @@
 
 1. In Dokploy project `khhub`, create environment `staging` (do not clone production volumes).
 2. Duplicate the compose service into `staging`, same git source (`WijanDev/khhub-go`, `docker-compose.yml`). Pin images by **SHA digest or immutable tag**, not a floating `:latest` that production also follows.
-3. Give the compose its own env: new `POSTGRES_*`, `SESSION_SECRET`, `ADMIN_*`. Set `CORS_ORIGINS=https://staging.khhub.app`, `COOKIE_SECURE=true`. Set `APP_ENV` so `/dev/reset-seed` is **not** registered (not `development`).
+3. Give the compose its own env: new `POSTGRES_*`, `SESSION_SECRET`, `ADMIN_*`. Set `CORS_ORIGINS=https://staging.khhub.app`, `COOKIE_SECURE=true`. Set `APP_ENV=staging` (never `development` on a public hostname). Seed reset is allowlisted for staging; production still must not register the route.
 4. DNS (Cloudflare, grey cloud): `staging.khhub.app` and `apistaging.khhub.app` A → `138.201.156.89`.
 5. Dokploy domains: `staging.khhub.app` → `web:80`, `apistaging.khhub.app` → `api:8080`, HTTPS Let’s Encrypt. Pass path `/` without Git Bash rewriting it.
 6. **API origin on the SPA.** Today `VITE_API_URL` is baked at image build. Prefer a **runtime** config (for example a small `config.js` or static-server env) so the same web digest can serve `https://apistaging.khhub.app` on staging and `https://api.khhub.app` on production. If runtime is too large for the first slice, CI must build **two** web images from the same commit (staging bake vs production bake) and promote that pair — not “the last `:latest`”.

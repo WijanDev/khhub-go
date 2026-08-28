@@ -3,6 +3,7 @@ package seed
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"khhub/internal/domain"
@@ -14,6 +15,18 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+// demoDataTables are wiped by Reset. users and sessions must never appear here.
+var demoDataTables = []string{
+	"field_service_reports",
+	"meeting_attendance",
+	"publishers",
+	"households",
+}
+
+func truncateDemoSQL() string {
+	return "TRUNCATE " + strings.Join(demoDataTables, ", ") + " RESTART IDENTITY CASCADE"
+}
+
 // Reset wipes congregation data (not users/sessions) and loads the demo sample.
 func Reset(ctx context.Context, pool *pgxpool.Pool, q *store.Queries) error {
 	tx, err := pool.Begin(ctx)
@@ -23,10 +36,7 @@ func Reset(ctx context.Context, pool *pgxpool.Pool, q *store.Queries) error {
 	defer tx.Rollback(ctx)
 	qtx := q.WithTx(tx)
 
-	if _, err := tx.Exec(ctx, `
-		TRUNCATE field_service_reports, meeting_attendance, publishers, households
-		RESTART IDENTITY CASCADE
-	`); err != nil {
+	if _, err := tx.Exec(ctx, truncateDemoSQL()); err != nil {
 		return fmt.Errorf("truncate demo tables: %w", err)
 	}
 
