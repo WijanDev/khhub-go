@@ -1,7 +1,7 @@
 # Drop leftover Vite starter assets
 
 - **Slug:** drop-vite-starter-assets
-- **Status:** proposed
+- **Status:** in-progress
 - **Merge date:**
 - **App version:**
 
