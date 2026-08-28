@@ -1,5 +1,15 @@
 # Implementation plan
 
+Current slice (overwrite confirm):
+
+1. Keep `PUT /attendance` as an upsert. Do not add a migration; `UNIQUE (meeting_date, kind)` is already in `000001_init`. Do not return 409.
+2. Narrow `putAttendance` to an `attendanceWriter` interface so httptest can use a memory store (`backend/internal/http/attendance.go`).
+3. Add `backend/internal/http/attendance_test.go`: two `PUT`s for the same date and kind keep one id and one row; invalid date or kind return 400.
+4. In `frontend/src/features/attendance.tsx`, if the loaded month list already has that date and kind, open the shadcn Base UI `AlertDialog`. A new date and kind saves immediately. Spanish copy: “¿Actualizar esta reunión?”; Cancelar / Actualizar.
+5. Verify: `cd backend && go test ./...`. In the browser, save a new meeting, save the same date and kind again, Cancel vs Actualizar.
+
+Later (calendar + Memorial; not this PR):
+
 1. Add `congregation_meeting_schedules`: `congregation_id`, midweek weekday + time, weekend weekday + time, `effective_from`, `effective_to` (nullable = current). No overlapping ranges per congregation. Seed the current (or implicit) congregation with one open version.
 2. Add `congregation_meeting_exceptions`: `congregation_id`, `type` (`memorial` | `special_visit` | `assembly`), `from_date`, `to_date`, which regular kinds it **cancels** (`midweek`, `weekend`, both, or none), optional short label (not pastoral notes). No overlapping **same type** on the same date per congregation unless the design later allows it; Memorial is one range per year in practice.
 3. Widen `meeting_attendance.kind` to `midweek` | `weekend` | `memorial` | `special_visit`. Replace `UNIQUE (meeting_date, kind)` with `UNIQUE (congregation_id, meeting_date, kind)` when `congregation_id` exists (or keep the single-install unique until accounts, then widen — never leave a global unique after tenancy).

@@ -1,6 +1,7 @@
 package http
 
 import (
+	"context"
 	"net/http"
 	"time"
 
@@ -9,6 +10,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
+// attendanceWriter is the store surface used by PUT /attendance.
+// *store.Queries implements it.
+type attendanceWriter interface {
+	UpsertAttendance(ctx context.Context, arg store.UpsertAttendanceParams) (store.MeetingAttendance, error)
+}
 
 type attendanceRequest struct {
 	Date     string `json:"date" binding:"required"`
@@ -55,7 +62,7 @@ func listAttendance(q *store.Queries) gin.HandlerFunc {
 	}
 }
 
-func putAttendance(q *store.Queries) gin.HandlerFunc {
+func putAttendance(q attendanceWriter) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req attendanceRequest
 		if err := c.ShouldBindJSON(&req); err != nil {
