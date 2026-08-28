@@ -19,7 +19,7 @@ Install or refresh third-party skills with the [skills CLI](https://skills.sh) i
 npx skills add <owner/repo> -a universal --copy -y -s <skill-name>
 ```
 
-`../skills-lock.json` pins source + hash. Project-owned skills (`khhub-stack`, `khhub-docs`, `roadmap-plan`) are not in that lockfile.
+`../skills-lock.json` pins source + hash. Project-owned skills (`khhub-stack`, `khhub-docs`, `roadmap-plan`, `install-repo`) are not in that lockfile.
 
 ## Installed skills
 
@@ -40,6 +40,7 @@ npx skills add <owner/repo> -a universal --copy -y -s <skill-name>
 
 | Skill | Source | Use |
 | --- | --- | --- |
+| `install-repo` | this repo | New machine: install and verify Git, Go, Node, Docker, `gh`, `hcloud`, Dokploy, Wrangler |
 | `khhub-stack` | this repo | sqlc, cookie auth, Base UI — **overrides** generic Gin/React advice |
 | `golang-gin-api` | [henriqueatila/golang-gin-best-practices](https://github.com/henriqueatila/golang-gin-best-practices) | Gin routing and handlers |
 | `golang-gin-testing` | same | httptest / table-driven tests |
