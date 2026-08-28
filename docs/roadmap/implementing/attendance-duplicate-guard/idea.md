@@ -1,7 +1,7 @@
 # Congregation meeting calendar and attendance uniqueness
 
 - **Slug:** attendance-duplicate-guard
-- **Status:** proposed
+- **Status:** in-progress
 - **Merge date:**
 - **App version:**
 
@@ -10,6 +10,8 @@
 Each congregation owns a versioned weekly timetable (midweek weekday + time, weekend weekday + time) and a dated **exception calendar**. Attendance uniqueness is **per congregation**, never global. Regular meetings, the Memorial, special visits, and assembly (or similar) cancellations all go through that calendar so the secretary cannot double-count or enter a meeting that did not happen.
 
 Absorbs `memorial-attendance`.
+
+**Current slice:** `UNIQUE (meeting_date, kind)` already exists and `PUT /attendance` upserts. Saving again for a date and type already in the loaded month asks for confirmation before replacing counts. No 409 and no calendar in this slice.
 
 ## Rules
 

@@ -1,6 +1,16 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { MonthNav } from "@/components/month-nav";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -33,6 +43,9 @@ export function AttendancePage() {
   const [kind, setKind] = useState<"midweek" | "weekend">("weekend");
   const [inPerson, setInPerson] = useState("0");
   const [online, setOnline] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const existing = (q.data ?? []).find((a) => a.date === date && a.kind === kind);
 
   const save = useMutation({
     mutationFn: () =>
@@ -59,9 +72,20 @@ export function AttendancePage() {
     },
   });
 
+  function persist() {
+    save.mutate();
+  }
+
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    save.mutate();
+    if (!q.isSuccess) {
+      return;
+    }
+    if (existing) {
+      setConfirmOpen(true);
+      return;
+    }
+    persist();
   }
 
   return (
@@ -126,10 +150,32 @@ export function AttendancePage() {
               <Input className="mt-1" type="number" min={0} value={online} onChange={(e) => setOnline(e.target.value)} />
             </div>
             {save.isError ? <p className="text-sm text-destructive">{save.error.message}</p> : null}
-            <Button type="submit" disabled={save.isPending}>
+            <Button type="submit" disabled={save.isPending || q.isLoading}>
               Guardar
             </Button>
           </form>
+          <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>¿Actualizar esta reunión?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Ya hay un conteo para esa fecha y tipo. Se reemplazarán la asistencia presencial y en línea.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  variant="destructive"
+                  onClick={() => {
+                    persist();
+                    setConfirmOpen(false);
+                  }}
+                >
+                  Actualizar
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </Card>
       </div>
     </div>
