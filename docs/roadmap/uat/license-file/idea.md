@@ -1,7 +1,7 @@
 # LICENSE for the public repo
 
 - **Slug:** license-file
-- **Status:** proposed
+- **Status:** uat
 - **Merge date:**
 - **App version:**
 

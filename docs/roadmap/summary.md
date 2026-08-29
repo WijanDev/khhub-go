@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [LICENSE for the public repo](pending/license-file/idea.md) | 1 | 2 | 2.00 |
 | [Pin Node 24 LTS and npm 11.11+](pending/node-24-lts/idea.md) | 1 | 2 | 2.00 |
 | [docs/architecture.md](pending/architecture-doc/idea.md) | 2 | 3 | 1.50 |
 | [Change admin email](pending/change-admin-email/idea.md) | 2 | 3 | 1.50 |
@@ -78,6 +77,7 @@ On `dev` / staging, not on `main`. Folders live in `uat/`. Same sort as pending.
 | [Login rate limit](uat/login-rate-limit/idea.md) | 2 | 4 | 2.00 |
 | [Handler tests for report hour rules](uat/report-upsert-handler-tests/idea.md) | 2 | 4 | 2.00 |
 | [Tests for ReportsHours and service year](uat/reports-hours-service-year-tests/idea.md) | 2 | 4 | 2.00 |
+| [LICENSE for the public repo](uat/license-file/idea.md) | 1 | 2 | 2.00 |
 | [Dokploy staging environment](uat/dokploy-staging-environment/idea.md) | 4 | 4 | 1.00 |
 | [Path-aware GHCR publishes and split Dokploy apps](uat/path-aware-ghcr-deploys/idea.md) | 3 | 3 | 1.00 |
 
