@@ -1,7 +1,7 @@
 # Pin Node 24 LTS and npm 11.11+
 
 - **Slug:** node-24-lts
-- **Status:** proposed
+- **Status:** in-progress
 - **Merge date:**
 - **App version:**
 

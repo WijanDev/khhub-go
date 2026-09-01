@@ -9,7 +9,7 @@ Dashboard totals are copied to the branch by hand.
 ## Requirements
 
 - Go 1.24+
-- Node 22+
+- Node 24+ (Active LTS; npm ≥ 11.11)
 - Docker (Postgres only in development)
 
 ## Local setup

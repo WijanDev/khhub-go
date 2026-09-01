@@ -39,7 +39,7 @@ Bring a fresh clone (or a second PC) to a working khhub checkout. Load this skil
 
 | Group | Tools | Needed to |
 | --- | --- | --- |
-| Required | Git, Go 1.24+, Node 22+, npm, Docker + Compose, `sqlc` | Code, tests, `sqlc generate`, local Postgres |
+| Required | Git, Go 1.24+, Node 24 LTS, npm ≥ 11.11, Docker + Compose, `sqlc` | Code, tests, `sqlc generate`, local Postgres |
 | Helpful | GNU `make`, `air` | Makefile shortcuts, API reload |
 | Cloud | `gh`, `hcloud`, `dokploy` (`@dokploy/cli`), `wrangler` | PRs, VPS, Dokploy panel, R2 |
 | Optional | `gitleaks` | Same secret scan as CI |
