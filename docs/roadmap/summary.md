@@ -18,7 +18,6 @@ Sorted by ratio (highest first), then utility, then slug.
 
 | Idea | Cost | Utility | Ratio |
 | --- | --- | --- | --- |
-| [Pin Node 24 LTS and npm 11.11+](pending/node-24-lts/idea.md) | 1 | 2 | 2.00 |
 | [docs/architecture.md](pending/architecture-doc/idea.md) | 2 | 3 | 1.50 |
 | [Change admin email](pending/change-admin-email/idea.md) | 2 | 3 | 1.50 |
 | [CONTRIBUTING.md](pending/contributing-md/idea.md) | 2 | 3 | 1.50 |
@@ -63,6 +62,7 @@ Status `in-progress`. Folders live in `implementing/`. Same sort as pending.
 | --- | --- | --- | --- |
 | [Tests that seed reset is blocked in production](implementing/seed-reset-production-guard-tests/idea.md) | 2 | 4 | 2.00 |
 | [Drop leftover Vite starter assets](implementing/drop-vite-starter-assets/idea.md) | 1 | 2 | 2.00 |
+| [Pin Node 24 LTS and npm 11.11+](implementing/node-24-lts/idea.md) | 1 | 2 | 2.00 |
 | [Congregation meeting calendar and attendance uniqueness](implementing/attendance-duplicate-guard/idea.md) | 4 | 4 | 1.00 |
 
 ## UAT
