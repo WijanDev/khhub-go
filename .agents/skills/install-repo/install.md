@@ -10,7 +10,7 @@ Dokploy panel for this project: `https://admin.wijan.dev`.
 | --- | --- | --- | --- |
 | Git | `winget install Git.Git` | `brew install git` | `sudo apt install git` |
 | Go 1.24+ | `winget install GoLang.Go` | `brew install go` | [go.dev/dl](https://go.dev/dl/) |
-| Node 24 LTS | `winget install OpenJS.NodeJS.LTS` | `brew install node` | [nodejs.org](https://nodejs.org/) or NodeSource |
+| Node 24 LTS (npm 11.11+) | `winget install OpenJS.NodeJS.LTS` or nvm-windows: `nvm install 24.21.0` then `nvm use 24.21.0` | `brew install node` or `nvm install --lts` | [nodejs.org](https://nodejs.org/) LTS. Need Node ≥ 24.14 so bundled npm is ≥ 11.11. |
 | Docker | `winget install Docker.DockerDesktop` then start Docker Desktop | `brew install --cask docker` | Docker Engine + Compose plugin |
 | sqlc | `go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest` | same | same |
 

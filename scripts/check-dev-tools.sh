@@ -32,7 +32,7 @@ node_major() {
 }
 
 npm_major_minor() {
-  npm --version 2>/dev/null | sed -n 's/^\([0-9][0-9]*\)\.\([0-9][0-9]*\).*/\1 \2/p'
+  npm -v 2>/dev/null | sed -n 's/^\([0-9][0-9]*\)\.\([0-9][0-9]*\).*/\1 \2/p'
 }
 
 check_required() {
@@ -57,22 +57,6 @@ row "------" "----" "-------" "----"
 
 # --- required ---
 check_required git git git --version
-
-if ! have npm; then
-  row "missing" "npm" "-" "need 11.11+ (Node 24 LTS)"
-  required_fail=1
-else
-  read -r npmmaj npmmin <<EOF
-$(npm_major_minor)
-EOF
-  npmv="$(npm --version 2>/dev/null | tr -d '\r')"
-  if [ -z "${npmmaj:-}" ] || [ "$npmmaj" -lt 11 ] || { [ "$npmmaj" -eq 11 ] && [ "${npmmin:-0}" -lt 11 ]; }; then
-    row "old" "npm" "$npmv" "need 11.11+ (Node 24 LTS)"
-    required_fail=1
-  else
-    row "ok" "npm" "$npmv" ""
-  fi
-fi
 
 if ! have go; then
   row "missing" "go" "-" "need 1.24+"
@@ -101,6 +85,22 @@ else
     required_fail=1
   else
     row "ok" "node" "$nv" ""
+  fi
+fi
+
+if ! have npm; then
+  row "missing" "npm" "-" "need 11.11+"
+  required_fail=1
+else
+  read -r nmaj nmin <<EOF
+$(npm_major_minor)
+EOF
+  nv="$(npm -v 2>/dev/null | tr -d '\r')"
+  if [ -z "${nmaj:-}" ] || [ "$nmaj" -lt 11 ] || { [ "$nmaj" -eq 11 ] && [ "${nmin:-0}" -lt 11 ]; }; then
+    row "old" "npm" "$nv" "need 11.11+ (Node 24.14+)"
+    required_fail=1
+  else
+    row "ok" "npm" "$nv" ""
   fi
 fi
 
